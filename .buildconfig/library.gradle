@@ -1,0 +1,196 @@
+ext {
+    //versions
+    kotlinVersion = "1.3.41"
+    supportVersion = '1.0.2'
+    playServicesVersion = '17.0.0'
+    corePlayVersion = '1.6.0'
+    constraintVersion = '1.1.3'
+    recyclerViewVersion = "1.0.0"
+    koinVersion = '2.0.1'
+    materialDesignVersion = '1.1.0-alpha09'
+    designVersion = '28.0.0'
+    cardviewVersion = '1.0.0'
+    coroutinesVersion = '1.3.0'
+    retrofitVersion = '2.5.0'
+    retrofitGsonVersion = '2.5.0'
+    gsonVersion = '2.8.2'
+    roomVersion = '1.1.1'
+    flexboxVersion = '0.3.2'
+    aviVersion = '2.1.3'
+    okhttpVersion = '3.14.0'
+    encriptVersion = '1.3.0'
+    glideVersion = '4.9.0'
+    lottieVersion = '3.0.7'
+    facebookShimmerVersion = "0.5.0@aar"
+    zxingVersion = '3.4.0'
+    viewModelExtensionsVersion = '2.1.0'
+    viewModelVersion = '2.2.0-rc02'
+    socketVersion = '1.0.0'
+    viewpager2Version = '1.0.0'
+    circleimageviewVersion = '3.0.1'
+    biometricVersion        = '1.0.1'
+    calendarViewVersion = '1.8.0-rc01'
+    picassoViewVersion = '2.5.2'
+    legacyViewVersion = '1.0.0'
+    appcompatSupportVersion = '28.0.0'
+    glideVersion = '4.9.0'
+    firebaseAnalitycsVersion = '17.2.3'
+
+    mokitoVersion = '3.1.0'
+    scannerVersion = '1.9.13'
+    jsoupVersion = '1.11.3'
+    securityVersion = '1.0.0-alpha02'
+
+    firebaseVersion = '17.2.0'
+    crashlyticsVersion = '2.10.1'
+    googlePlacesVersion = '2.0.0'
+    exifinterfaceVersion =  '1.2.0'
+    messagingVersion =  '20.1.5'
+    authVersion = '18.0.0'
+    vBiometric    = '1.0.1'
+
+    //packages
+    supportPackage = 'androidx'
+    appcompatSupportPackage = 'com.android.support'
+    playServicesPackage = 'com.google.android.gms'
+    corePlayPackage = 'com.google.android.play'
+    koinPackage = 'org.koin'
+    flexboxPackage = 'com.google.android'
+    aviPackage = 'com.wang.avi'
+    viewpager2Package = 'androidx.viewpager2'
+    circleimageviewPackage = 'de.hdodenhof'
+    biometricPackage        = 'androidx.biometric'
+    calendarViewPackage = 'com.applandeo'
+    picassoViewPackage = 'com.squareup.picasso'
+    legacyViewPackage = 'androidx.legacy'
+    glidePackage = 'com.github.bumptech.glide'
+    firebasePackage = 'com.google.firebase'
+    pkgBiometric    = 'androidx.biometric'
+
+
+    kotlinPackage = 'org.jetbrains.kotlin'
+    materialDesignPackage = 'com.google.android.material'
+    designPackage = 'com.android.support'
+    coroutinesPackage = 'org.jetbrains.kotlinx'
+    retrofitPackage = 'com.squareup.retrofit2'
+    gsonPackage = 'com.google.code.gson'
+    roomPackage = 'android.arch.persistence.room'
+    okhttpPackage = 'com.squareup.okhttp3'
+    encriptPackage = 'com.pddstudio'
+    glidePackage = 'com.github.bumptech.glide'
+    lottiePackage = 'com.airbnb.android'
+    facebookShimmerPackage = 'com.facebook.shimmer'
+    zxingPackage = 'com.google.zxing'
+    viewModelPackage = 'androidx.lifecycle'
+    socketPackage = 'io.socket'
+    mokitoPackage = 'org.mockito'
+    firebasePackage = 'com.google.firebase'
+    crashlyticsPackage = 'com.crashlytics.sdk.android'
+    googlePlacesPackage = 'com.google.android.libraries.places'
+    barcodeScannerPackage = 'me.dm7.barcodescanner'
+    jsoupPackage = "org.jsoup"
+    securityPackage = 'androidx.security'
+    exifinterfacePackage = 'androidx.exifinterface'
+    messagingPackage = 'com.google.firebase'
+    authPackage = 'com.google.firebase'
+
+    //Android
+    androidConfig = [
+            androidBuildToolsVersion        : "29.0.0",
+            androidMinSdkVersion            : 24,
+            androidTargetSdkVersion         : 29,
+            androidCompileSdkVersion        : 29,
+            androidapplicationId            : 'pe.solera.angloamericanaapp',
+            androidVersionCode              : 1,
+            androidVersionName              : "1.0.0",
+            androidTestInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
+            kotlinVersion                   : kotlinVersion
+    ]
+
+    presentationDependencies = [
+
+            appcompat          : buildDependency(addPackage(supportPackage, 'appcompat'), 'appcompat', supportVersion),
+            constraint         : buildDependency(addPackage(supportPackage, 'constraintlayout'), 'constraintlayout', constraintVersion),
+            recyclerView       : buildDependency(addPackage(supportPackage, 'recyclerview'), 'recyclerview', recyclerViewVersion),
+            cardView           : buildDependency(addPackage(supportPackage, 'cardview'), 'cardview', cardviewVersion),
+            core               : buildDependency(addPackage(supportPackage, 'core'), 'core-ktx', supportVersion),
+            appcompatSupport   : buildDependency(appcompatSupportPackage, 'appcompat-v7', appcompatSupportVersion),
+            corePlay           : buildDependency(corePlayPackage, 'core', corePlayVersion),
+            koin               : buildDependency(koinPackage, 'koin-androidx-viewmodel', koinVersion),
+            kotlin             : buildDependency(kotlinPackage, 'kotlin-stdlib-jdk7', kotlinVersion),
+            materialDesign     : buildDependency(materialDesignPackage, 'material', materialDesignVersion),
+            design             : buildDependency(designPackage, 'design', designVersion),
+            coroutines         : buildDependency(coroutinesPackage, 'kotlinx-coroutines-core', coroutinesVersion),
+            coroutinesAndroid  : buildDependency(coroutinesPackage, 'kotlinx-coroutines-android', coroutinesVersion),
+            viewModelkoin      : buildDependency(koinPackage, 'koin-androidx-viewmodel', kotlinVersion),
+            glides              : buildDependency(glidePackage, 'okhttp3-integration', glideVersion),
+            glideAnnotations   : buildDependency(glidePackage, 'annotations', glideVersion),
+            glideCompiler      : buildDependency(glidePackage, 'compiler', glideVersion),
+            lottie             : buildDependency(lottiePackage, 'lottie', lottieVersion),
+            facebookShimmer    : buildDependency(facebookShimmerPackage, 'shimmer', facebookShimmerVersion),
+            xzing              : buildDependency(zxingPackage, 'core', zxingVersion),
+            viewModelExtensions: buildDependency(viewModelPackage, 'lifecycle-extensions', viewModelExtensionsVersion),
+            viewModel          : buildDependency(viewModelPackage, 'lifecycle-viewmodel-ktx', viewModelVersion),
+            gson               : buildDependency(gsonPackage, 'gson', gsonVersion),
+            maps               : buildDependency(playServicesPackage, 'play-services-maps', playServicesVersion),
+            location           : buildDependency(playServicesPackage, 'play-services-location', playServicesVersion),
+            firebaseCore       : buildDependency(firebasePackage, 'firebase-core', firebaseVersion),
+            firebaseAnalytics  : buildDependency(firebasePackage, 'firebase-analytics', firebaseVersion),
+            crashlytics        : buildDependency(crashlyticsPackage, 'crashlytics', crashlyticsVersion),
+            googlePlacesPackage: buildDependency(googlePlacesPackage, 'places', googlePlacesVersion),
+            scanner            : buildDependency(barcodeScannerPackage, 'zxing', scannerVersion),
+            flexbox            : buildDependency(flexboxPackage, 'flexbox', flexboxVersion),
+            avi                : buildDependency(aviPackage, 'library', aviVersion),
+            viewpager2                : buildDependency(viewpager2Package, 'viewpager2', viewpager2Version),
+            circleimageview                : buildDependency(circleimageviewPackage, 'circleimageview', circleimageviewVersion),
+            biometric          : buildDependency(biometricPackage, 'biometric', biometricVersion),
+            materialCalendarView          : buildDependency(calendarViewPackage, 'material-calendar-view', calendarViewVersion),
+            picasso          : buildDependency(picassoViewPackage, 'picasso', picassoViewVersion),
+            legacy          : buildDependency(legacyViewPackage, 'legacy-support-v4', legacyViewVersion),
+            glide      : buildDependency(glidePackage, 'glide', glideVersion),
+            exifinterface : buildDependency(exifinterfacePackage, 'exifinterface', exifinterfaceVersion),
+            messaging :  buildDependency(messagingPackage, 'firebase-messaging', messagingVersion),
+            auth :  buildDependency(authPackage, 'firebase-auth', authVersion),
+            firebaseAnalitycs    : buildDependency(firebasePackage, 'firebase-analytics', firebaseAnalitycsVersion),
+    ]
+
+    repositoryDependencies = [
+            core           : buildDependency(addPackage(supportPackage, 'core'), 'core-ktx', supportVersion),
+            corePlay       : buildDependency(corePlayPackage, 'core', corePlayVersion),
+            koin           : buildDependency(koinPackage, 'koin-androidx-viewmodel', koinVersion),
+            kotlin         : buildDependency(kotlinPackage, 'kotlin-stdlib-jdk7', kotlinVersion),
+            retrofit       : buildDependency(retrofitPackage, 'retrofit', retrofitVersion),
+            retrofitAdapter: buildDependency(retrofitPackage, 'adapter-rxjava', retrofitVersion),
+            retrofitGson   : buildDependency(retrofitPackage, 'converter-gson', retrofitGsonVersion),
+            gson           : buildDependency(gsonPackage, 'gson', gsonVersion),
+            room           : buildDependency(roomPackage, 'runtime', roomVersion),
+            roomCompiler   : buildDependency(roomPackage, 'compiler', roomVersion),
+            okhttp         : buildDependency(okhttpPackage, 'logging-interceptor', okhttpVersion),
+            encrypt        : buildDependency(encriptPackage, 'encrypted-preferences', encriptVersion),
+            socket         : buildDependency(socketPackage, 'socket.io-client', socketVersion),
+            jsoup          : buildDependency(jsoupPackage, 'jsoup', jsoupVersion),
+            security       : buildDependency(securityPackage, 'security-crypto', securityVersion),
+
+    ]
+
+    useCaseDependencies = [
+            core      : buildDependency(addPackage(supportPackage, 'core'), 'core-ktx', supportVersion),
+            koin      : buildDependency(koinPackage, 'koin-androidx-viewmodel', koinVersion),
+            kotlin    : buildDependency(kotlinPackage, 'kotlin-stdlib-jdk7', kotlinVersion),
+            coroutines: buildDependency(coroutinesPackage, 'kotlinx-coroutines-core', coroutinesVersion),
+    ]
+
+    useCaseTestDependencies = [
+            koin  : buildDependency(koinPackage, 'koin-test', koinVersion),
+            mokito: buildDependency(mokitoPackage, 'mockito-core', mokitoVersion),
+    ]
+
+}
+
+static String buildDependency(String pack, String dependency, String version) {
+    return "${pack}:${dependency}:${version}"
+}
+
+static String addPackage(String pack, String add) {
+    return "${pack}.${add}"
+}
