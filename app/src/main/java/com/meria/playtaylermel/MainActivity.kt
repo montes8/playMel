@@ -12,6 +12,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.meria.playtaylermel.extensions.permissionMusic
+import com.meria.playtaylermel.extensions.requestPermissionResultActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
@@ -30,7 +32,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        handlePermission()
+        musicAdapter = MusicAdapter()
+        rvListMusic.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rvListMusic.adapter = musicAdapter
+        this.permissionMusic {
+            initList()
+        }
+
     }
 
     private fun initList(){
@@ -39,43 +47,18 @@ class MainActivity : AppCompatActivity() {
             listMusic.add(item.name.toString())
         }
 
-        musicAdapter = MusicAdapter()
-        rvListMusic.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        rvListMusic.adapter = musicAdapter
         musicAdapter?.list = listMusic
         Log.d("listMusic","$listMusic")
     }
 
-    private fun handlePermission() {
-        val permissionCheck = ContextCompat.checkSelfPermission(this, RequieredPermission)
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, RequieredPermission)) {
-                initList()
-            } else {
-                requestPermission(RequieredPermission, REQUEST_PERMISSION_READING_STATE)
-            }
-        } else {
-            initList()
-        }
-    }
 
-    private fun requestPermission(permissionName: String, permissionRequestCode: Int) {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(permissionName),
-            permissionRequestCode
-        )
-    }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            REQUEST_PERMISSION_READING_STATE -> if (grantResults.size > 0 && grantResults[0] === PackageManager.PERMISSION_GRANTED) {
-               initList()
-            } else {
-                Toast.makeText(this@MainActivity, "Permission Denied!", Toast.LENGTH_SHORT).show()
-            }
-        }
+      this.requestPermissionResultActivity(requestCode,grantResults){
+          initList()
+      }
     }
 
 

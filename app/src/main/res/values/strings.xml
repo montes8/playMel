@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PlaytaylerMel</string>
+
+
+
+
+    <string name="error_message_music_denied">Necesitas el permiso para inicar </string>
 </resources>
