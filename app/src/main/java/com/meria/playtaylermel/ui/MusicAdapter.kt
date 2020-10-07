@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
 import kotlinx.android.synthetic.main.row_music.view.*
 
-class MusicAdapter (var onClickMusicSelected: ((String) -> Unit)? = null) : RecyclerView.Adapter<MusicAdapter.MusicViewHolder>() {
+class MusicAdapter (var onClickMusicSelected: ((Int) -> Unit)? = null) : RecyclerView.Adapter<MusicAdapter.MusicViewHolder>() {
 
 
 
@@ -34,6 +34,9 @@ class MusicAdapter (var onClickMusicSelected: ((String) -> Unit)? = null) : Recy
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
         val model = list[position]
         holder.itemView.idNameMusic.text = model
+        holder.itemView.setOnClickListener {
+            onClickMusicSelected?.invoke(position)
+        }
 
     }
 

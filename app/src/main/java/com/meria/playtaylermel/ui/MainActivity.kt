@@ -33,11 +33,11 @@ class MainActivity : AppCompatActivity() {
     private fun initList(){
         val songs = getMusic(Environment.getExternalStorageDirectory())
         for (item in songs){
-            listMusic.add(item.name.toString())
+            listMusic.add(item.path)
         }
         musicAdapter?.list = listMusic
         musicAdapter?.onClickMusicSelected ={
-           startActivity(DetailMusicActivity.newInstance(this,it))
+           startActivity(DetailMusicActivity.newInstance(this,listMusic,it))
         }
         Log.d("listMusic","$listMusic")
     }
