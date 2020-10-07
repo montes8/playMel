@@ -1,0 +1,29 @@
+<resources>
+
+
+    <!-- dimen generales -->
+
+    <dimen name="general">0dp</dimen>
+    <dimen name="size_twenty">20dp</dimen>
+    <dimen name="size_ten">10dp</dimen>
+
+
+
+
+
+    <dimen name="padding_item_width">13dp</dimen>
+    <dimen name="item_width">10dp</dimen>
+
+    <!-- tamaños de letras -->
+
+    <dimen name="text_size_eleven">11sp</dimen>
+    <dimen name="text_size_twelve">12sp</dimen>
+    <dimen name="text_size_thirteen">13sp</dimen>
+    <dimen name="text_size_fourteen">14sp</dimen>
+    <dimen name="text_size_fifteen">15sp</dimen>
+    <dimen name="text_size_sixteen">16sp</dimen>
+    <dimen name="text_size_seventeen">17sp</dimen>
+    <dimen name="text_size_nineteen">19sp</dimen>
+    <dimen name="text_size_twenty_eight">28sp</dimen>
+
+</resources>
