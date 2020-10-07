@@ -1,34 +1,24 @@
-package com.meria.playtaylermel
+package com.meria.playtaylermel.ui
 
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
+import com.meria.playtaylermel.ui.detail.DetailMusicActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
+    private val listMusic : ArrayList<String> = ArrayList()
 
-    val listMusic : ArrayList<String> = ArrayList()
+    var musicAdapter : MusicAdapter? = null
 
-    var musicAdapter :MusicAdapter? = null
-
-    val REQUEST_PERMISSION_READING_STATE = 12345
-
-    private val RequieredPermission: String = android.Manifest.permission.READ_EXTERNAL_STORAGE
-
-    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,21 +28,19 @@ class MainActivity : AppCompatActivity() {
         this.permissionMusic {
             initList()
         }
-
     }
 
     private fun initList(){
-        val canciones = getMusic(Environment.getExternalStorageDirectory())
-        for (item in canciones){
+        val songs = getMusic(Environment.getExternalStorageDirectory())
+        for (item in songs){
             listMusic.add(item.name.toString())
         }
-
         musicAdapter?.list = listMusic
+        musicAdapter?.onClickMusicSelected ={
+           startActivity(DetailMusicActivity.newInstance(this,it))
+        }
         Log.d("listMusic","$listMusic")
     }
-
-
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -61,21 +49,20 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-
     private fun getMusic(root: File): ArrayList<File> {
-        val canciones: ArrayList<File> = ArrayList()
-        val archivos = root.listFiles()
-        archivos?.let {
+        val filesMusic: ArrayList<File> = ArrayList()
+        val files = root.listFiles()
+        files?.let {
             for (item in it) {
                 if (item.isDirectory && !item.isHidden) {
-                    canciones.addAll(getMusic(item))
+                    filesMusic.addAll(getMusic(item))
                } else {
                     if (item.name.endsWith(".mp3")) {
-                        canciones.add(item)
+                        filesMusic.add(item)
                     }
                 }
             }
         }
-        return canciones
+        return filesMusic
     }
 }
