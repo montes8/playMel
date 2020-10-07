@@ -1,18 +1,19 @@
 package com.meria.playtaylermel
 
-import android.net.Uri
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,11 +22,19 @@ class MainActivity : AppCompatActivity() {
 
     var musicAdapter :MusicAdapter? = null
 
+    val REQUEST_PERMISSION_READING_STATE = 12345
+
+    private val RequieredPermission: String = android.Manifest.permission.READ_EXTERNAL_STORAGE
+
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val canciones = getMusic(File(Environment.getRootDirectory().path))
+        handlePermission()
+    }
+
+    private fun initList(){
+        val canciones = getMusic(Environment.getExternalStorageDirectory())
         for (item in canciones){
             listMusic.add(item.name.toString())
         }
@@ -35,10 +44,39 @@ class MainActivity : AppCompatActivity() {
         rvListMusic.adapter = musicAdapter
         musicAdapter?.list = listMusic
         Log.d("listMusic","$listMusic")
-
-
     }
 
+    private fun handlePermission() {
+        val permissionCheck = ContextCompat.checkSelfPermission(this, RequieredPermission)
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, RequieredPermission)) {
+                initList()
+            } else {
+                requestPermission(RequieredPermission, REQUEST_PERMISSION_READING_STATE)
+            }
+        } else {
+            initList()
+        }
+    }
+
+    private fun requestPermission(permissionName: String, permissionRequestCode: Int) {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(permissionName),
+            permissionRequestCode
+        )
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            REQUEST_PERMISSION_READING_STATE -> if (grantResults.size > 0 && grantResults[0] === PackageManager.PERMISSION_GRANTED) {
+               initList()
+            } else {
+                Toast.makeText(this@MainActivity, "Permission Denied!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 
     private fun getMusic(root: File): ArrayList<File> {
