@@ -69,19 +69,27 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initProgress(){
-        sbProgress.max = mPlayer?.duration?:0
-        sbProgress.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-            override fun onProgressChanged(
-                seekBar: SeekBar,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-                if (mPlayer != null && fromUser) {
-                    mPlayer?.seekTo(progress * 1000)
+        val background = object : Thread() {
+            override fun run() {
+
+                val duration = mPlayer?.duration?:0
+                sbProgress.max = duration
+                var positionCurrent = 0
+                val ejecuction = 0
+                val flag = false
+                while (positionCurrent < duration){
+                    try {
+                        sleep((500).toLong())
+                        positionCurrent = mPlayer?.currentPosition?:0
+                        sbProgress.progress = positionCurrent
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
+
             }
-        })
+        }
+        background.start()
     }
 }
