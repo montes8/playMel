@@ -29,6 +29,8 @@
             android:layout_height="wrap_content"
            android:textSize="14sp"
             android:padding="5dp"
+            android:text="nvgrknv"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/imgPlay"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -61,7 +63,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imgSkipNext"
             app:layout_constraintStart_toEndOf="@+id/imgSkipPrevious"
-            app:srcCompat="@drawable/ic_play" />
+            app:srcCompat="@drawable/ic_pause" />
 
         <ImageView
             android:id="@+id/imgSkipNext"

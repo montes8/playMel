@@ -1,20 +1,22 @@
 package com.meria.playtaylermel.ui.detail
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.meria.playtaylermel.DATA_NAME_MUSIC
 import com.meria.playtaylermel.DATA_POSITION_MUSIC
 import com.meria.playtaylermel.R
 import kotlinx.android.synthetic.main.activity_detail_music.*
-import java.text.FieldPosition
+import java.util.concurrent.TimeUnit
 
 
 class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
@@ -51,7 +53,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-               mPlayer?.seekTo(sbProgress.progress)
+                mPlayer?.seekTo(sbProgress.progress)
             }
 
         })
@@ -68,6 +70,9 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun playMusic(music: String) {
+        mPlayer?.let {
+            it.stop()
+        }
         mPlayer = MediaPlayer()
         mPlayer?.setDataSource(music)
         mPlayer?.prepare();
@@ -87,14 +92,37 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id ?: return) {
             R.id.imgFastRewind -> {
+                Handler().post {
+                    mPlayer?.seekTo(sbProgress.progress - 5000)
+                }
+
             }
             R.id.imgSkipPrevious -> {
+                if (positionMusic !=0){
+                    positionMusic--
+                    playMusic(namesMusicList[positionMusic])
+                }
             }
             R.id.imgPlay -> {
+                if (mPlayer?.isPlaying == true){
+                    imgPlay.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_pause))
+                    mPlayer?.pause()
+                }else{
+                    mPlayer?.start()
+                    imgPlay.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_play))
+                }
             }
             R.id.imgSkipNext -> {
+                if (positionMusic < namesMusicList.size){
+                    positionMusic++
+                    playMusic(namesMusicList[positionMusic])
+                }
             }
             R.id.imgFastForward -> {
+                Handler().post {
+                    mPlayer?.seekTo(sbProgress.progress + 5000)
+                }
+
             }
 
         }
@@ -102,17 +130,26 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initProgress() {
         val background = object : Thread() {
+            @SuppressLint("SetTextI18n", "DefaultLocale")
             override fun run() {
                 val duration = mPlayer?.duration ?: 0
                 sbProgress.max = duration
                 var positionCurrent = 0
-                val ejecuction = 0
-                val flag = false
                 while (positionCurrent < duration) {
                     try {
                         sleep((500).toLong())
                         positionCurrent = mPlayer?.currentPosition ?: 0
                         sbProgress.progress = positionCurrent
+
+                        val durationTxt: Int = mPlayer?.currentPosition?:0
+
+                        val time = java.lang.String.format("%02d:%02d ", TimeUnit.MILLISECONDS.toMinutes(durationTxt.toLong()),
+                            TimeUnit.MILLISECONDS.toSeconds(durationTxt.toLong()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(
+                                            durationTxt.toLong()))
+                        )
+
+                        txtDuration.text = time
+                        Log.d("postioncurrnt",""+time)
 
 
                     } catch (e: Exception) {
