@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Play Bia</string>
+    <string name="app_name">Play Meli</string>
 
 
     <string name="error_message_music_denied">Necesitas el permiso para inicar </string>
+    <string name="txt_title_music">Lista Musical</string>
 </resources>

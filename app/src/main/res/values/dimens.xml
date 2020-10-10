@@ -4,6 +4,7 @@
     <!-- dimen generales -->
 
     <dimen name="general">0dp</dimen>
+    <dimen name="size_five">5dp</dimen>
     <dimen name="size_twenty">20dp</dimen>
     <dimen name="size_ten">10dp</dimen>
 

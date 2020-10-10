@@ -3,10 +3,9 @@ package com.meria.playtaylermel.ui.detail
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -15,22 +14,24 @@ import androidx.core.content.ContextCompat
 import com.meria.playtaylermel.DATA_NAME_MUSIC
 import com.meria.playtaylermel.DATA_POSITION_MUSIC
 import com.meria.playtaylermel.R
+import com.meria.playtaylermel.extensions.formatTimePlayer
+import com.meria.playtaylermel.model.MusicModel
 import kotlinx.android.synthetic.main.activity_detail_music.*
-import java.util.concurrent.TimeUnit
 
 
 class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
-    var namesMusicList: ArrayList<String> = ArrayList()
-    var positionMusic: Int = 0
+    private var namesMusicList: ArrayList<MusicModel> = ArrayList()
+    private var positionMusic: Int = 0
 
+
+    private var audioManager : AudioManager? = null
     private var mPlayer: MediaPlayer? = null
-    private var aux: String? = null
 
     companion object {
-        fun newInstance(context: Context, nameMusic: ArrayList<String>, position: Int): Intent {
+        fun newInstance(context: Context, nameMusic: ArrayList<MusicModel>, position: Int): Intent {
             val intent = Intent(context, DetailMusicActivity::class.java)
-            intent.putStringArrayListExtra(DATA_NAME_MUSIC, nameMusic)
+            intent.putExtra(DATA_NAME_MUSIC, nameMusic)
             intent.putExtra(DATA_POSITION_MUSIC, position)
             return intent
         }
@@ -40,9 +41,36 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_music)
         intent?.let {
-            namesMusicList = it.getStringArrayListExtra(DATA_NAME_MUSIC) as ArrayList<String>
+            namesMusicList = it.getParcelableArrayListExtra<MusicModel>(DATA_NAME_MUSIC) as ArrayList<MusicModel>
             positionMusic = it.getIntExtra(DATA_POSITION_MUSIC, 0)
         }
+        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        seekBarAudio.max = audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?:0
+        seekBarAudio.progress= audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?:0
+
+       initUpdateProgress()
+        initOnClick()
+        playMusic(namesMusicList[positionMusic].path)
+
+
+    }
+
+    private fun initUpdateProgress(){
+        seekBarAudio.setOnSeekBarChangeListener(object  : OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                audioManager?.setStreamVolume(AudioManager.STREAM_MUSIC,progress,0)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+        })
+
         sbProgress.setOnSeekBarChangeListener(object  : OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 
@@ -57,9 +85,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             }
 
         })
-        initOnClick()
-        playMusic(namesMusicList[positionMusic])
-
 
     }
 
@@ -71,20 +96,15 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     @SuppressLint("DefaultLocale")
     private fun playMusic(music: String) {
-        mPlayer?.let {
-            it.stop()
+        mPlayer?.apply {
+            this.stop()
         }
         mPlayer = MediaPlayer()
         mPlayer?.setDataSource(music)
-        mPlayer?.prepare();
+        mPlayer?.prepare()
         mPlayer?.start()
         initProgress()
-        val durationFinal = mPlayer?.duration?:0
-        val timeFinal = java.lang.String.format("%02d:%02d ", TimeUnit.MILLISECONDS.toMinutes(durationFinal.toLong()),
-            TimeUnit.MILLISECONDS.toSeconds(durationFinal.toLong()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(
-                durationFinal.toLong()))
-        )
-        txtDurationFinal.text = timeFinal
+        txtDurationFinal.formatTimePlayer(mPlayer?.duration?:0)
 
     }
 
@@ -99,37 +119,32 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id ?: return) {
             R.id.imgFastRewind -> {
-                Handler().post {
                     mPlayer?.seekTo(sbProgress.progress - 5000)
-                }
-
             }
             R.id.imgSkipPrevious -> {
                 if (positionMusic !=0){
                     positionMusic--
-                    playMusic(namesMusicList[positionMusic])
+                    playMusic(namesMusicList[positionMusic].path)
                 }
             }
             R.id.imgPlay -> {
                 if (mPlayer?.isPlaying == true){
-                    imgPlay.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_pause))
+                    imgPlay.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_play))
                     mPlayer?.pause()
                 }else{
+                    imgPlay.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_pause))
                     mPlayer?.start()
-                    imgPlay.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_play))
+
                 }
             }
             R.id.imgSkipNext -> {
                 if (positionMusic < namesMusicList.size){
                     positionMusic++
-                    playMusic(namesMusicList[positionMusic])
+                    playMusic(namesMusicList[positionMusic].path)
                 }
             }
             R.id.imgFastForward -> {
-                Handler().post {
-                    mPlayer?.seekTo(sbProgress.progress + 5000)
-                }
-
+                mPlayer?.seekTo(sbProgress.progress + 5000)
             }
 
         }
@@ -137,7 +152,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initProgress() {
         val background = object : Thread() {
-            @SuppressLint("SetTextI18n", "DefaultLocale")
             override fun run() {
                 val duration = mPlayer?.duration ?: 0
                 sbProgress.max = duration
@@ -147,15 +161,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                         sleep((500).toLong())
                         positionCurrent = mPlayer?.currentPosition ?: 0
                         sbProgress.progress = positionCurrent
-                        val durationTxt: Int = mPlayer?.currentPosition?:0
-                        val time = java.lang.String.format("%02d:%02d ", TimeUnit.MILLISECONDS.toMinutes(durationTxt.toLong()),
-                            TimeUnit.MILLISECONDS.toSeconds(durationTxt.toLong()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(
-                                durationTxt.toLong()))
-                        )
-
-                        txtDuration.text = time
-                        Log.d("postioncurrnt",""+time)
-
+                        txtDuration.formatTimePlayer(mPlayer?.currentPosition?:0)
 
                     } catch (e: Exception) {
                         e.printStackTrace()

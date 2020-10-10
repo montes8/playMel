@@ -1,13 +1,16 @@
 package com.meria.playtaylermel.extensions
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.REQUEST_PERMISSION_READING_STATE
 import com.meria.playtaylermel.Utils.toastGeneric
+import java.util.concurrent.TimeUnit
 
 
 fun Activity.permissionMusic(func: () -> Unit){
@@ -25,11 +28,16 @@ fun Activity.permissionMusic(func: () -> Unit){
 
 }
 
+@SuppressLint("DefaultLocale")
+fun TextView.formatTimePlayer(time :Int){
+    val timeFinal = java.lang.String.format("%02d:%02d ", TimeUnit.MILLISECONDS.toMinutes(time.toLong()),
+        TimeUnit.MILLISECONDS.toSeconds(time.toLong()) - TimeUnit.MINUTES.toSeconds(
+            TimeUnit.MILLISECONDS.toMinutes(
+                time.toLong()))
+    )
+    this.text = timeFinal
 
-
-
-
-
+}
 
 fun Activity.requestPermissionResultActivity(requestCode: Int, grantResults: IntArray,func: () -> Unit){
     when (requestCode) {

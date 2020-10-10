@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
+import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.ui.detail.DetailMusicActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
-    private val listMusic : ArrayList<String> = ArrayList()
+    private val listMusic : ArrayList<MusicModel> = ArrayList()
 
     var musicAdapter : MusicAdapter? = null
 
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private fun initList(){
         val songs = getMusic(Environment.getExternalStorageDirectory())
         for (item in songs){
-            listMusic.add(item.path)
+            listMusic.add(MusicModel(item.name,item.path))
         }
         musicAdapter?.list = listMusic
         musicAdapter?.onClickMusicSelected ={
