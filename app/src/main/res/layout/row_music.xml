@@ -2,20 +2,47 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="10dp"
+    android:padding="@dimen/size_ten"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/idNameMusic"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:textSize="15sp"
+        android:fontFamily="@font/dootype_italicbold"
         android:padding="5dp"
+        android:text="@string/app_name"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_size_twelve"
+        android:layout_marginStart="@dimen/size_ten"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textTimeItem"
+        android:layout_marginEnd="@dimen/size_ten"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_musica_romantica" />
+
+    <TextView
+        android:id="@+id/textTimeItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_black"
+        android:fontFamily="@font/dootype_amplabook"
+        android:text="@string/app_name"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_size_eleven"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

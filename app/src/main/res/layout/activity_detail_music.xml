@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/size_ten"
     tools:context=".ui.detail.DetailMusicActivity">
 
     <ImageView
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_twenty"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/size_five"
+
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@null"
         android:layout_marginStart="@dimen/size_five"
-        android:layout_marginTop="@dimen/size_twenty"
+        android:layout_marginTop="@dimen/size_fifteen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:srcCompat="@drawable/ic_baseline_volume" />

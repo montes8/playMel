@@ -48,7 +48,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         seekBarAudio.max = audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?:0
         seekBarAudio.progress= audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?:0
 
-       initUpdateProgress()
+        initUpdateProgress()
         initOnClick()
         playMusic(namesMusicList[positionMusic].path)
 
