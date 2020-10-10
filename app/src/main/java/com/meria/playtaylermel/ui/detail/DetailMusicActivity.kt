@@ -1,6 +1,6 @@
 package com.meria.playtaylermel.ui.detail
 
-import android.annotation.SuppressLint
+
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
@@ -48,6 +48,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         seekBarAudio.max = audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?:0
         seekBarAudio.progress= audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?:0
 
+
         initUpdateProgress()
         initOnClick()
         playMusic(namesMusicList[positionMusic].path)
@@ -73,7 +74,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
         sbProgress.setOnSeekBarChangeListener(object  : OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -94,7 +94,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    @SuppressLint("DefaultLocale")
     private fun playMusic(music: String) {
         mPlayer?.apply {
             this.stop()
@@ -105,6 +104,10 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         mPlayer?.start()
         initProgress()
         txtDurationFinal.formatTimePlayer(mPlayer?.duration?:0)
+        mPlayer?.setOnCompletionListener {
+            it.reset()
+            musicNext()
+        }
 
     }
 
@@ -122,10 +125,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                     mPlayer?.seekTo(sbProgress.progress - 5000)
             }
             R.id.imgSkipPrevious -> {
-                if (positionMusic !=0){
-                    positionMusic--
-                    playMusic(namesMusicList[positionMusic].path)
-                }
+              musicBack()
             }
             R.id.imgPlay -> {
                 if (mPlayer?.isPlaying == true){
@@ -138,15 +138,28 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.imgSkipNext -> {
-                if (positionMusic < namesMusicList.size){
-                    positionMusic++
-                    playMusic(namesMusicList[positionMusic].path)
+                if (positionMusic < namesMusicList.size-1){
+                    musicNext()
                 }
             }
             R.id.imgFastForward -> {
                 mPlayer?.seekTo(sbProgress.progress + 5000)
             }
 
+        }
+    }
+
+    private fun musicNext(){
+        if (positionMusic < namesMusicList.size-1){
+            positionMusic++
+            playMusic(namesMusicList[positionMusic].path)
+        }
+    }
+
+    private fun musicBack(){
+        if (positionMusic !=0){
+            positionMusic--
+            playMusic(namesMusicList[positionMusic].path)
         }
     }
 
