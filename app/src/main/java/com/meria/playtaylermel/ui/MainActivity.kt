@@ -1,11 +1,15 @@
 package com.meria.playtaylermel.ui
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.meria.playtaylermel.DATA_NAME_MUSIC
+import com.meria.playtaylermel.DATA_POSITION_MUSIC
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
@@ -19,6 +23,14 @@ class MainActivity : AppCompatActivity() {
     private val listMusic : ArrayList<MusicModel> = ArrayList()
 
     var musicAdapter : MusicAdapter? = null
+
+
+    companion object {
+        fun newInstance(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

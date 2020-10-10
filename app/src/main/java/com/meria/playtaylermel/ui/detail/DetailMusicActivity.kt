@@ -6,6 +6,7 @@ import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -17,13 +18,14 @@ import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.formatTimePlayer
 import com.meria.playtaylermel.model.MusicModel
 import kotlinx.android.synthetic.main.activity_detail_music.*
+import kotlin.concurrent.thread
 
 
 class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     private var namesMusicList: ArrayList<MusicModel> = ArrayList()
     private var positionMusic: Int = 0
-
+    var handler :Handler = Handler()
 
     private var audioManager : AudioManager? = null
     private var mPlayer: MediaPlayer? = null
@@ -164,7 +166,27 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initProgress() {
-        val background = object : Thread() {
+        thread(start = true){
+            val duration = mPlayer?.duration ?: 0
+            sbProgress.max = duration
+            var positionCurrent = 0
+            while (positionCurrent < duration) {
+                try {
+                    Thread.sleep((500).toLong())
+                    positionCurrent = mPlayer?.currentPosition ?: 0
+                    handler.post {
+                        sbProgress.progress = positionCurrent
+                        txtDuration.formatTimePlayer(mPlayer?.currentPosition?:0)
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+        }
+
+      /*  val background = object : Thread() {
             override fun run() {
                 val duration = mPlayer?.duration ?: 0
                 sbProgress.max = duration
@@ -182,6 +204,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-        background.start()
+        background.start()*/
     }
 }
