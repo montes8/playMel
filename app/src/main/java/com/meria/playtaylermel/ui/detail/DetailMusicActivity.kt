@@ -69,6 +69,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    @SuppressLint("DefaultLocale")
     private fun playMusic(music: String) {
         mPlayer?.let {
             it.stop()
@@ -78,6 +79,12 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         mPlayer?.prepare();
         mPlayer?.start()
         initProgress()
+        val durationFinal = mPlayer?.duration?:0
+        val timeFinal = java.lang.String.format("%02d:%02d ", TimeUnit.MILLISECONDS.toMinutes(durationFinal.toLong()),
+            TimeUnit.MILLISECONDS.toSeconds(durationFinal.toLong()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(
+                durationFinal.toLong()))
+        )
+        txtDurationFinal.text = timeFinal
 
     }
 
@@ -140,12 +147,10 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                         sleep((500).toLong())
                         positionCurrent = mPlayer?.currentPosition ?: 0
                         sbProgress.progress = positionCurrent
-
                         val durationTxt: Int = mPlayer?.currentPosition?:0
-
                         val time = java.lang.String.format("%02d:%02d ", TimeUnit.MILLISECONDS.toMinutes(durationTxt.toLong()),
                             TimeUnit.MILLISECONDS.toSeconds(durationTxt.toLong()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(
-                                            durationTxt.toLong()))
+                                durationTxt.toLong()))
                         )
 
                         txtDuration.text = time
@@ -160,6 +165,4 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         }
         background.start()
     }
-
-
 }
