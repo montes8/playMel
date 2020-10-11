@@ -12,17 +12,17 @@ import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
 import com.meria.playtaylermel.model.MusicModel
-import com.meria.playtaylermel.ui.detail.DetailMusicActivity
+import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
 import com.meria.playtaylermel.ui.movies.MoviesActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     private val listMusic : ArrayList<MusicModel> = ArrayList()
 
     var musicAdapter : MusicAdapter? = null
-
 
     companion object {
         fun newInstance(context: Context): Intent {
@@ -46,10 +46,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun initList(){
         val songs = getMusic(Environment.getExternalStorageDirectory())
         for (item in songs){
-            listMusic.add(MusicModel(item.name,item.path))
+            listMusic.add(MusicModel(name = item.name,path = item.path))
         }
         musicAdapter?.list = listMusic
         musicAdapter?.onClickMusicSelected ={

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/size_ten"
-    tools:context=".ui.detail.DetailMusicActivity">
+    tools:context=".ui.detail.music.DetailMusicActivity">
 
     <ImageView
         android:id="@+id/imageView2"

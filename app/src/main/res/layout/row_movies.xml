@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView android:layout_width="match_parent"
-    android:layout_height="300dp"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
     app:showFullScreenButton="false"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     android:padding="@dimen/size_ten"
     android:id="@+id/youtubePlayerView"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+  />
 
+
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/imgZoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="17dp"
+        android:elevation="@dimen/size_ten"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_tab_24" />
+</androidx.constraintlayout.widget.ConstraintLayout>

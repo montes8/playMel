@@ -1,4 +1,4 @@
-package com.meria.playtaylermel.ui.detail
+package com.meria.playtaylermel.ui.detail.music
 
 
 import android.content.Context
