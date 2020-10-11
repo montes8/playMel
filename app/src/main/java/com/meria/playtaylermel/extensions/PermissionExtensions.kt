@@ -3,6 +3,8 @@ package com.meria.playtaylermel.extensions
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -26,6 +28,19 @@ fun Activity.permissionMusic(func: () -> Unit){
         func()
     }
 
+}
+
+
+fun TextView.animationTop(){
+    val ani = AnimationUtils.loadAnimation(this.context, R.anim.top_in)
+    this.animation=ani
+
+
+}
+
+fun TextView.animationButton(){
+    val ani = AnimationUtils.loadAnimation(this.context, R.anim.button_out)
+    this.animation=ani
 }
 
 @SuppressLint("DefaultLocale")

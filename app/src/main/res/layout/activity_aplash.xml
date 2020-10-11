@@ -14,10 +14,44 @@
         android:layout_marginTop="@dimen/size_forty"
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="@dimen/size_five"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_fileName="music.json"
         app:lottie_loop="true" />
 
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:id="@+id/textTitleSplash"
+            android:text="BIENVENIDA PRINCESA"
+            android:layout_alignParentBottom="true"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/imgLogoSlider"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/dootype_italicbold"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:text="VALERIA"
+            android:id="@+id/textSubTitleSplash"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTitleSplash"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/dootype_italicbold"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 </androidx.constraintlayout.widget.ConstraintLayout>

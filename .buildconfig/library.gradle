@@ -40,6 +40,7 @@ ext {
     scannerVersion = '1.9.13'
     jsoupVersion = '1.11.3'
     securityVersion = '1.0.0-alpha02'
+    youtubeplayerVersion = '10.0.3'
 
     firebaseVersion = '17.2.0'
     crashlyticsVersion = '2.10.1'
@@ -66,6 +67,7 @@ ext {
     glidePackage = 'com.github.bumptech.glide'
     firebasePackage = 'com.google.firebase'
     pkgBiometric    = 'androidx.biometric'
+    youtubeplayerPackage = 'com.pierfrancescosoffritti.androidyoutubeplayer'
 
 
     kotlinPackage = 'org.jetbrains.kotlin'
@@ -152,6 +154,7 @@ ext {
             messaging :  buildDependency(messagingPackage, 'firebase-messaging', messagingVersion),
             auth :  buildDependency(authPackage, 'firebase-auth', authVersion),
             firebaseAnalitycs    : buildDependency(firebasePackage, 'firebase-analytics', firebaseAnalitycsVersion),
+            youtubeplayer      : buildDependency(youtubeplayerPackage, 'core', youtubeplayerVersion),
     ]
 
     repositoryDependencies = [

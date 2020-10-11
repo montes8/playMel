@@ -1,4 +1,4 @@
-package com.meria.playtaylermel.ui
+package com.meria.playtaylermel.ui.home
 
 import android.view.LayoutInflater
 import android.view.View

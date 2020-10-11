@@ -40,6 +40,7 @@
         android:textColor="@color/gray_black"
         android:fontFamily="@font/dootype_amplabook"
         android:text="@string/app_name"
+        android:visibility="gone"
         android:gravity="center_vertical"
         android:textSize="@dimen/text_size_eleven"
         app:layout_constraintBottom_toBottomOf="parent"

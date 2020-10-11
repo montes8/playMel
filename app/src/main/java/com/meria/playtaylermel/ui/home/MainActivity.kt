@@ -1,4 +1,4 @@
-package com.meria.playtaylermel.ui
+package com.meria.playtaylermel.ui.home
 
 import android.content.Context
 import android.content.Intent
@@ -8,13 +8,12 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.meria.playtaylermel.DATA_NAME_MUSIC
-import com.meria.playtaylermel.DATA_POSITION_MUSIC
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.ui.detail.DetailMusicActivity
+import com.meria.playtaylermel.ui.movies.MoviesActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
@@ -40,6 +39,10 @@ class MainActivity : AppCompatActivity() {
         rvListMusic.adapter = musicAdapter
         this.permissionMusic {
             initList()
+        }
+
+        floatingActionButton.setOnClickListener {
+            startActivity(MoviesActivity.newInstance(this))
         }
     }
 

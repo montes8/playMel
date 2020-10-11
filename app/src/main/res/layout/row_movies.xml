@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView android:layout_width="match_parent"
+    android:layout_height="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:showFullScreenButton="false"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:padding="@dimen/size_ten"
+    android:id="@+id/youtubePlayerView"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+

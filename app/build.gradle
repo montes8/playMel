@@ -39,6 +39,7 @@ dependencies {
     implementation presentationDependencies.constraint
     implementation presentationDependencies.design
     implementation presentationDependencies.lottie
+    implementation presentationDependencies.youtubeplayer
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     testImplementation 'junit:junit:4.12'
