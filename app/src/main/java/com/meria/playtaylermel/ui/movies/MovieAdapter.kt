@@ -1,5 +1,6 @@
 package com.meria.playtaylermel.ui.movies
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,24 +26,18 @@ class MovieAdapter (var onClickMusicSelected: ((Int) -> Unit)? = null) : Recycle
 
         }
 
-    fun setUpdateItem(model: MusicModel) {
-        val index = indexList(list,model)
-        list[index] = model
-       notifyItemChanged(index)
-    }
+    fun setUpdateItem(position: Int) {
+        val model = list[position]
+        model.play = true
+        list[position] = model
+        notifyItemChanged(position)
 
-    private fun indexList(listSearch: List<MusicModel>, model: MusicModel?):Int{
-        listSearch.forEachIndexed { index, campus ->
-            if (model?.id ==campus.id ){
-                return index
-            }
-        }
-        return -1
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val youTubePlayerView = LayoutInflater.from(parent.context).inflate(R.layout.row_movies, parent, false)
+
+
         return MovieViewHolder(youTubePlayerView)
 
     }
@@ -59,11 +54,15 @@ class MovieAdapter (var onClickMusicSelected: ((Int) -> Unit)? = null) : Recycle
         holder.itemView.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
                 val videoId = model.path
-                videoId.let { youTubePlayer.loadVideo(it, 0f) }
+                videoId.let {
+                    youTubePlayer.loadVideo(it, 0f)
+                }
                 if (model.play){
                     youTubePlayer.play()
+                    Log.d("positionlistPlay",""+position)
                 }else{
                     youTubePlayer.pause()
+                    Log.d("positionlistPlay","fals")
                 }
             }
         })

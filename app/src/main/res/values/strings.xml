@@ -2,9 +2,11 @@
     <string name="app_name">Play Meli</string>
 
 
+    <string name="txt_error_internet">Necesitas una conexión a internet</string>
+
     <string name="error_message_music_denied">Necesitas el permiso para inicar </string>
     <string name="txt_title_music">Lista Musical</string>
-    <string name="message_welcome">Bienvenida princesa valeria</string>
-    <string name="message_home">aquí podras escuchar tus canciones favoritas y tambien ver tus videos de frozen y mas</string>
-    <string name="message_movie">Si no encuntras tu video favorito, tayler  lo agregara para ti pronto valeria</string>
+    <string name="message_welcome">princesa valeria</string>
+    <string name="message_home">Vale estas son tus canciones favoritas</string>
+    <string name="message_movie">tus videos estan aqui vale</string>
 </resources>

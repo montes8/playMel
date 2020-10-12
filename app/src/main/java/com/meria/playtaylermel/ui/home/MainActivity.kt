@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
+import com.meria.playtaylermel.Utils.isConnected
+import com.meria.playtaylermel.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
 import com.meria.playtaylermel.model.MusicModel
@@ -42,7 +44,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         floatingActionButton.setOnClickListener {
-            startActivity(MoviesActivity.newInstance(this))
+            if (isConnected(this)){
+                startActivity(MoviesActivity.newInstance(this))
+            }else{
+                toastGeneric(this,resources.getString(R.string.txt_error_internet))
+            }
+
         }
     }
 

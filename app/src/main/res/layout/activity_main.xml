@@ -40,7 +40,7 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:backgroundTint="@color/white"
+        android:backgroundTint="@color/white"
         android:layout_marginEnd="@dimen/size_twenty"
         android:layout_marginBottom="@dimen/size_twenty"
         android:src="@drawable/ic_musica_romantica"

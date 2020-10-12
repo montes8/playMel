@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-class MusicModel (
+data class MusicModel (
     val id : Int= 0,
     var name : String,
     var path :String,
