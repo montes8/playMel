@@ -8,6 +8,11 @@
     android:padding="@dimen/size_ten"
     tools:context=".ui.detail.music.DetailMusicActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:id="@+id/expanded_container"
+        android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
@@ -147,10 +152,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+
         android:backgroundTint="@color/white"
         android:src="@drawable/ic_musica_romantica"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

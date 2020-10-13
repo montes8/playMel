@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
         musicAdapter?.list = listMusic
         musicAdapter?.onClickMusicSelected ={
-           startActivity(DetailMusicActivity.newInstance(this,listMusic,it))
+            startActivityForResult(DetailMusicActivity.newInstance(this,listMusic,it),120)
         }
         Log.d("listMusic","$listMusic")
     }
@@ -88,5 +88,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return filesMusic
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == 120) {
+            finish()
+        }
     }
 }

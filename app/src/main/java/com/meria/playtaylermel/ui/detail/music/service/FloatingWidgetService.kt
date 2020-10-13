@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.graphics.Point
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -19,6 +20,7 @@ import android.widget.ImageView
 import androidx.annotation.Nullable
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.meria.playtaylermel.R
+import com.meria.playtaylermel.model.MediaPlayerSingleton
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
 import kotlin.math.abs
 
@@ -43,22 +45,10 @@ class FloatingWidgetService : Service(), View.OnClickListener {
 
     override fun onCreate() {
         super.onCreate()
-        if (Build.VERSION.SDK_INT >= 26) {
-            val channelID = "my_channel_01"
-            val channel = NotificationChannel(
-                channelID,
-                "Channel human readable title",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
-            val notification: Notification = Notification.Builder(this, channelID)
-                .setContentTitle("")
-                .setContentText("").build()
-            startForeground(1, notification)
-        }
-
+        //init WindowManager
         mWindowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         getWindowManagerDefaultDisplay()
+        //Init LayoutInflater
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.let {
             addFloatingWidgetView(inflater)
@@ -66,7 +56,6 @@ class FloatingWidgetService : Service(), View.OnClickListener {
             implementTouchListenerToFloatingWidgetView()
             updateExpandedView()
         }
-
     }
 
 
@@ -139,10 +128,8 @@ class FloatingWidgetService : Service(), View.OnClickListener {
                         timeStart = System.currentTimeMillis()
                         initialX = params.x
                         initialY = params.y
-
                         initialTouchX = event.rawX
                         initialTouchY = event.rawY
-
                         lastAction = event.action
                         return true
                     }
@@ -153,7 +140,6 @@ class FloatingWidgetService : Service(), View.OnClickListener {
                         if (abs(xDiff) < 5 && abs(yDiff) < 5) {
                             if (timeEnd - timeStart < 300) {
                                 clickButtonFloating()
-
                             }
 
                         }
@@ -174,15 +160,14 @@ class FloatingWidgetService : Service(), View.OnClickListener {
     }
 
     private fun implementClickListeners() {
-        mFloatingWidgetView?.findViewById<ImageView>(R.id.close_floating_view)
-            ?.setOnClickListener(this)
-        mFloatingWidgetView?.findViewById<ConstraintLayout>(R.id.collapseView)
-            ?.setOnClickListener(this)
+        mFloatingWidgetView?.findViewById<ImageView>(R.id.close_floating_view)?.setOnClickListener(this)
+        mFloatingWidgetView?.findViewById<ConstraintLayout>(R.id.collapseView)?.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when (v.id) {
             R.id.close_floating_view -> {
+                MediaPlayerSingleton.getInstanceMusic()?.stop()
                 stopSelf()
             }
 

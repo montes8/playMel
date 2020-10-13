@@ -1,5 +1,6 @@
 package com.meria.playtaylermel.ui.splash
 
+import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.animationButton
 import com.meria.playtaylermel.extensions.animationTop
+import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import com.meria.playtaylermel.ui.home.MainActivity
 import kotlinx.android.synthetic.main.activity_aplash.*
 import java.util.*
@@ -32,6 +34,7 @@ class SplashActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
     }
 
     private fun initSplash() {
+        stopService(Intent(this, FloatingWidgetService::class.java))
         val background = object : Thread() {
             override fun run() {
                         sleep((3000).toLong())

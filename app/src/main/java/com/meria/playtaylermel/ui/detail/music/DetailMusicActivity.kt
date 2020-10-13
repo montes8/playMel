@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +20,7 @@ import com.meria.playtaylermel.DATA_POSITION_MUSIC
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.formatTimePlayer
+import com.meria.playtaylermel.model.MediaPlayerSingleton
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import kotlinx.android.synthetic.main.activity_detail_music.*
@@ -35,7 +35,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private val cod = 1222
 
     private var audioManager : AudioManager? = null
-    private var mPlayer: MediaPlayer? = null
 
     companion object {
         fun newInstance(context: Context, nameMusic: ArrayList<MusicModel>, position: Int): Intent {
@@ -88,7 +87,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                mPlayer?.seekTo(sbProgress.progress)
+                MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress)
             }
 
         })
@@ -96,7 +95,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        mPlayer?.stop()
+        MediaPlayerSingleton.getInstanceMusic()?.stop()
         super.onBackPressed()
 
     }
@@ -112,7 +111,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             startFloatingWidgetService()
         }
-
     }
 
 
@@ -125,7 +123,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == cod) {
             if (isPermissionGiven()){
-               startFloatingWidgetService()
+                startFloatingWidgetService()
             } else{
                 toastGeneric(this,resources.getString(R.string.error_message_music_denied))
             }
@@ -134,21 +132,24 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun startFloatingWidgetService() {
+        val resultIntent = Intent()
+        setResult(120, resultIntent)
+        finish()
         startService(Intent(this, FloatingWidgetService::class.java))
         finish()
     }
 
     private fun playMusic(music: String) {
-        mPlayer?.apply {
+        MediaPlayerSingleton.getInstanceMusic()?.apply {
             this.stop()
         }
-        mPlayer = MediaPlayer()
-        mPlayer?.setDataSource(music)
-        mPlayer?.prepare()
-        mPlayer?.start()
+        MediaPlayerSingleton.setMediaPlayerSingleton()
+        MediaPlayerSingleton.getInstanceMusic()?.setDataSource(music)
+        MediaPlayerSingleton.getInstanceMusic()?.prepare()
+        MediaPlayerSingleton.getInstanceMusic()?.start()
         initProgress()
-        txtDurationFinal.formatTimePlayer(mPlayer?.duration?:0)
-        mPlayer?.setOnCompletionListener {
+        txtDurationFinal.formatTimePlayer(  MediaPlayerSingleton.getInstanceMusic()?.duration?:0)
+        MediaPlayerSingleton.getInstanceMusic()?.setOnCompletionListener {
             it.reset()
             musicNext()
         }
@@ -161,23 +162,24 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         imgPlay.setOnClickListener(this)
         imgSkipNext.setOnClickListener(this)
         imgFastForward.setOnClickListener(this)
+        floatingActionButtonService.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id ?: return) {
             R.id.imgFastRewind -> {
-                    mPlayer?.seekTo(sbProgress.progress - 5000)
+                MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress - 5000)
             }
             R.id.imgSkipPrevious -> {
               musicBack()
             }
             R.id.imgPlay -> {
-                if (mPlayer?.isPlaying == true){
+                if (MediaPlayerSingleton.isPlaying){
                     imgPlay.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_play))
-                    mPlayer?.pause()
+                    MediaPlayerSingleton.getInstanceMusic()?.pause()
                 }else{
                     imgPlay.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_pause))
-                    mPlayer?.start()
+                    MediaPlayerSingleton.getInstanceMusic()?.start()
 
                 }
             }
@@ -187,11 +189,11 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.imgFastForward -> {
-                mPlayer?.seekTo(sbProgress.progress + 5000)
+                MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress + 5000)
             }
 
             R.id.floatingActionButtonService->{
-               // createFloatingWidget()
+                createFloatingWidget()
             }
 
         }
@@ -213,16 +215,16 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initProgress() {
         thread(start = true){
-            val duration = mPlayer?.duration ?: 0
+            val duration =  MediaPlayerSingleton.getInstanceMusic()?.duration ?: 0
             sbProgress.max = duration
             var positionCurrent = 0
             while (positionCurrent < duration) {
                 try {
                     Thread.sleep((500).toLong())
-                    positionCurrent = mPlayer?.currentPosition ?: 0
+                    positionCurrent =   MediaPlayerSingleton.getInstanceMusic()?.currentPosition ?: 0
                     handler.post {
                         sbProgress.progress = positionCurrent
-                        txtDuration.formatTimePlayer(mPlayer?.currentPosition?:0)
+                        txtDuration.formatTimePlayer(  MediaPlayerSingleton.getInstanceMusic()?.currentPosition?:0)
                     }
 
                 } catch (e: Exception) {
@@ -231,25 +233,5 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             }
 
         }
-
-      /*  val background = object : Thread() {
-            override fun run() {
-                val duration = mPlayer?.duration ?: 0
-                sbProgress.max = duration
-                var positionCurrent = 0
-                while (positionCurrent < duration) {
-                    try {
-                        sleep((500).toLong())
-                        positionCurrent = mPlayer?.currentPosition ?: 0
-                        sbProgress.progress = positionCurrent
-                        txtDuration.formatTimePlayer(mPlayer?.currentPosition?:0)
-
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-        }
-        background.start()*/
     }
 }

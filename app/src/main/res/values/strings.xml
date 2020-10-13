@@ -6,7 +6,10 @@
 
     <string name="error_message_music_denied">Necesitas el permiso para inicar </string>
     <string name="txt_title_music">Lista Musical</string>
-    <string name="message_welcome">princesa valeria</string>
+    <string name="message_welcome">Buenos dias princesa valeria</string>
+    <string name="message_welcome_two">Buenas tardes princesa valeria</string>
+    <string name="message_welcome_three">No olvides dormir temprano valeria</string>
+
     <string name="message_home">Vale estas son tus canciones favoritas</string>
     <string name="message_movie">tus videos estan aqui vale</string>
 </resources>
