@@ -22,6 +22,7 @@ import com.meria.playtaylermel.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.formatTimePlayer
 import com.meria.playtaylermel.model.MediaPlayerSingleton
 import com.meria.playtaylermel.model.MusicModel
+import com.meria.playtaylermel.model.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import kotlinx.android.synthetic.main.activity_detail_music.*
 import kotlin.concurrent.thread
@@ -37,21 +38,16 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private var audioManager : AudioManager? = null
 
     companion object {
-        fun newInstance(context: Context, nameMusic: ArrayList<MusicModel>, position: Int): Intent {
-            val intent = Intent(context, DetailMusicActivity::class.java)
-            intent.putExtra(DATA_NAME_MUSIC, nameMusic)
-            intent.putExtra(DATA_POSITION_MUSIC, position)
-            return intent
+        fun newInstance(context: Context): Intent {
+            return  Intent(context, DetailMusicActivity::class.java)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_music)
-        intent?.let {
-            namesMusicList = it.getParcelableArrayListExtra<MusicModel>(DATA_NAME_MUSIC) as ArrayList<MusicModel>
-            positionMusic = it.getIntExtra(DATA_POSITION_MUSIC, 0)
-        }
+        namesMusicList = MusicTemporal.getListMusic()
+        positionMusic = MusicTemporal.getPositionMusic()
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         seekBarAudio.max = audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?:0
         seekBarAudio.progress= audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?:0
@@ -202,6 +198,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private fun musicNext(){
         if (positionMusic < namesMusicList.size-1){
             positionMusic++
+            MusicTemporal.setPositionMusic(positionMusic)
             playMusic(namesMusicList[positionMusic].path)
         }
     }
@@ -209,6 +206,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private fun musicBack(){
         if (positionMusic !=0){
             positionMusic--
+            MusicTemporal.setPositionMusic(positionMusic)
             playMusic(namesMusicList[positionMusic].path)
         }
     }

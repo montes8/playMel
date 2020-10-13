@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class MusicModel (
     val id : Int= 0,
-    var name : String,
-    var path :String,
+    var name : String = "",
+    var path :String = "",
     var play : Boolean = false
 ):Parcelable

@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.annotation.Nullable
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -161,7 +162,7 @@ class FloatingWidgetService : Service(), View.OnClickListener {
 
     private fun implementClickListeners() {
         mFloatingWidgetView?.findViewById<ImageView>(R.id.close_floating_view)?.setOnClickListener(this)
-        mFloatingWidgetView?.findViewById<ConstraintLayout>(R.id.collapseView)?.setOnClickListener(this)
+        mFloatingWidgetView?.findViewById<ImageButton>(R.id.collapsed_iv)?.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -171,7 +172,7 @@ class FloatingWidgetService : Service(), View.OnClickListener {
                 stopSelf()
             }
 
-            R.id.collapseView -> {
+            R.id.collapsed_iv -> {
                 clickButtonFloating()
             }
         }

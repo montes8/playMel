@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.animationButton
 import com.meria.playtaylermel.extensions.animationTop
+import com.meria.playtaylermel.model.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import com.meria.playtaylermel.ui.home.MainActivity
 import kotlinx.android.synthetic.main.activity_aplash.*
@@ -35,6 +36,7 @@ class SplashActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
 
     private fun initSplash() {
         stopService(Intent(this, FloatingWidgetService::class.java))
+        MusicTemporal.resetListMusic()
         val background = object : Thread() {
             override fun run() {
                         sleep((3000).toLong())

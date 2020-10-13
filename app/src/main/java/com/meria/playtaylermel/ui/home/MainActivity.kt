@@ -14,6 +14,7 @@ import com.meria.playtaylermel.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
 import com.meria.playtaylermel.model.MusicModel
+import com.meria.playtaylermel.model.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
 import com.meria.playtaylermel.ui.movies.MoviesActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -61,7 +62,9 @@ class MainActivity : AppCompatActivity() {
         }
         musicAdapter?.list = listMusic
         musicAdapter?.onClickMusicSelected ={
-            startActivityForResult(DetailMusicActivity.newInstance(this,listMusic,it),120)
+            MusicTemporal.addListMusic(listMusic)
+            MusicTemporal.setPositionMusic(it)
+            startActivityForResult(DetailMusicActivity.newInstance(this),120)
         }
         Log.d("listMusic","$listMusic")
     }
