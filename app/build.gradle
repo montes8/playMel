@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -40,6 +41,14 @@ dependencies {
     implementation presentationDependencies.design
     implementation presentationDependencies.lottie
     implementation presentationDependencies.youtubeplayer
+    implementation presentationDependencies.glide
+    implementation presentationDependencies.exifinterface
+
+
+    //Romm
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    implementation 'android.arch.persistence.room:rxjava2:1.1.1'
+    kapt "android.arch.persistence.room:compiler:1.1.1"
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     testImplementation 'junit:junit:4.12'

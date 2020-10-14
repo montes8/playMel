@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
+        android:name=".application.PlayApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,12 +24,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity,UnusedAttribute">
-        <activity android:name=".ui.detail.movie.MovieDetailActivity"
-        android:launchMode="singleTop"
-        android:screenOrientation="landscape"/>
-        <activity android:name=".ui.movies.MoviesActivity"
+        <activity android:name=".ui.gallery.GalleryActivity"></activity>
+        <activity
+            android:name=".ui.detail.movie.MovieDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.movies.MoviesActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTop"
@@ -54,7 +58,6 @@
             android:exported="true"
             android:foregroundServiceType="mediaProjection"
             android:theme="@style/AppTheme" />
-
     </application>
 
 </manifest>

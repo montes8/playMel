@@ -22,6 +22,7 @@ import com.meria.playtaylermel.model.MediaPlayerSingleton
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
+import com.meria.playtaylermel.ui.gallery.GalleryActivity
 import com.meria.playtaylermel.ui.home.MainActivity
 import kotlinx.android.synthetic.main.activity_detail_music.*
 import kotlin.concurrent.thread
@@ -31,7 +32,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     private var namesMusicList: ArrayList<MusicModel> = ArrayList()
     private var positionMusic: Int = 0
-    var handler :Handler = Handler()
+    private var handler :Handler = Handler()
     private val cod = 1222
 
     private var audioManager : AudioManager? = null
@@ -183,6 +184,10 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             R.id.imgFastForward -> { MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress + 5000) }
 
             R.id.floatingActionButtonService->{ createFloatingWidget() }
+
+            R.id.floatingActionGallery->{
+                startActivity(GalleryActivity.newInstance(this))
+            }
 
         }
     }
