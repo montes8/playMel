@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,24 +12,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_gravity="bottom|end"
         android:background="@color/transparent"
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <ImageButton
-            android:id="@+id/collapsed_iv"
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_twenty"
-            android:layout_marginBottom="@dimen/size_twenty"
-            android:src="@drawable/ic_musica_romantica"
+            android:id="@+id/collapsed_iv"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/size_twenty"
+            android:layout_marginBottom="@dimen/size_twenty"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:targetApi="lollipop" />
+            android:background="@drawable/bg_circle_selected"
+            android:layout_height="wrap_content">
+            <ImageView
+
+                android:layout_width="20dp"
+                android:layout_gravity="center"
+                android:layout_height="20dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/ic_musica_romantica"
+                tools:ignore="ContentDescription"
+                tools:targetApi="lollipop" />
+
+        </LinearLayout>
+
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/close_floating_view"
@@ -44,4 +56,4 @@
             tools:ignore="ContentDescription"
             tools:targetApi="lollipop" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

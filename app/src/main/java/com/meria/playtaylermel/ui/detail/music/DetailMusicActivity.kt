@@ -15,15 +15,14 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.meria.playtaylermel.DATA_NAME_MUSIC
-import com.meria.playtaylermel.DATA_POSITION_MUSIC
 import com.meria.playtaylermel.R
-import com.meria.playtaylermel.Utils.toastGeneric
+import com.meria.playtaylermel.util.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.formatTimePlayer
 import com.meria.playtaylermel.model.MediaPlayerSingleton
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
+import com.meria.playtaylermel.ui.home.MainActivity
 import kotlinx.android.synthetic.main.activity_detail_music.*
 import kotlin.concurrent.thread
 
@@ -93,6 +92,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         MediaPlayerSingleton.getInstanceMusic()?.stop()
         super.onBackPressed()
+        startActivity(MainActivity.newInstance(this))
 
     }
 
@@ -128,9 +128,9 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun startFloatingWidgetService() {
+        MediaPlayerSingleton.getInstanceMusic()
         val resultIntent = Intent()
         setResult(120, resultIntent)
-        finish()
         startService(Intent(this, FloatingWidgetService::class.java))
         finish()
     }
@@ -163,14 +163,10 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id ?: return) {
-            R.id.imgFastRewind -> {
-                MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress - 5000)
-            }
-            R.id.imgSkipPrevious -> {
-              musicBack()
-            }
+            R.id.imgFastRewind -> { MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress - 5000)}
+            R.id.imgSkipPrevious -> { musicBack() }
             R.id.imgPlay -> {
-                if (MediaPlayerSingleton.isPlaying){
+                if (MediaPlayerSingleton.getInstanceMusic()?.isPlaying==true){
                     imgPlay.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_play))
                     MediaPlayerSingleton.getInstanceMusic()?.pause()
                 }else{
@@ -184,13 +180,9 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                     musicNext()
                 }
             }
-            R.id.imgFastForward -> {
-                MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress + 5000)
-            }
+            R.id.imgFastForward -> { MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress + 5000) }
 
-            R.id.floatingActionButtonService->{
-                createFloatingWidget()
-            }
+            R.id.floatingActionButtonService->{ createFloatingWidget() }
 
         }
     }
@@ -198,6 +190,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private fun musicNext(){
         if (positionMusic < namesMusicList.size-1){
             positionMusic++
+            MusicTemporal.setPositionCurrentMusic(0)
             MusicTemporal.setPositionMusic(positionMusic)
             playMusic(namesMusicList[positionMusic].path)
         }
@@ -206,6 +199,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private fun musicBack(){
         if (positionMusic !=0){
             positionMusic--
+            MusicTemporal.setPositionCurrentMusic(0)
             MusicTemporal.setPositionMusic(positionMusic)
             playMusic(namesMusicList[positionMusic].path)
         }
@@ -215,14 +209,16 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         thread(start = true){
             val duration =  MediaPlayerSingleton.getInstanceMusic()?.duration ?: 0
             sbProgress.max = duration
+            MediaPlayerSingleton.getInstanceMusic()?.seekTo(MusicTemporal.getPositionCurrentMusic())
             var positionCurrent = 0
             while (positionCurrent < duration) {
                 try {
                     Thread.sleep((500).toLong())
-                    positionCurrent =   MediaPlayerSingleton.getInstanceMusic()?.currentPosition ?: 0
+                    MusicTemporal.setPositionCurrentMusic(MediaPlayerSingleton.getInstanceMusic()?.currentPosition ?: 0)
+                    positionCurrent =   MusicTemporal.getPositionCurrentMusic()
                     handler.post {
-                        sbProgress.progress = positionCurrent
-                        txtDuration.formatTimePlayer(  MediaPlayerSingleton.getInstanceMusic()?.currentPosition?:0)
+                        sbProgress.progress =  MusicTemporal.getPositionCurrentMusic()
+                        txtDuration.formatTimePlayer(   MusicTemporal.getPositionCurrentMusic())
                     }
 
                 } catch (e: Exception) {

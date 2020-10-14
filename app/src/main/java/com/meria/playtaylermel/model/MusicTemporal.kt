@@ -4,6 +4,7 @@ object MusicTemporal {
 
     private var dataList : ArrayList<MusicModel> = ArrayList()
     private var positionMusic = 0
+    private var positionCurrent = 0
 
     fun getListMusic()= dataList
 
@@ -17,6 +18,12 @@ object MusicTemporal {
     }
 
     fun getPositionMusic()= positionMusic
+
+    fun setPositionCurrentMusic(currentPosition : Int){
+        positionCurrent = currentPosition
+    }
+
+    fun getPositionCurrentMusic()= positionCurrent
 
 
 

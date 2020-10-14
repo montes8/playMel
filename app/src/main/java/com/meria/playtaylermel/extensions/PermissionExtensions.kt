@@ -3,15 +3,13 @@ package com.meria.playtaylermel.extensions
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.meria.playtaylermel.R
-import com.meria.playtaylermel.REQUEST_PERMISSION_READING_STATE
-import com.meria.playtaylermel.Utils.toastGeneric
+import com.meria.playtaylermel.util.REQUEST_PERMISSION_READING_STATE
+import com.meria.playtaylermel.util.Utils.toastGeneric
 import java.util.concurrent.TimeUnit
 
 
@@ -22,7 +20,9 @@ fun Activity.permissionMusic(func: () -> Unit){
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, requiresPermission)) {
             func()
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(requiresPermission), REQUEST_PERMISSION_READING_STATE)
+            ActivityCompat.requestPermissions(this, arrayOf(requiresPermission),
+                REQUEST_PERMISSION_READING_STATE
+            )
         }
     } else {
         func()

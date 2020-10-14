@@ -9,6 +9,7 @@
     <string name="message_welcome">Buenos dias princesa valeria</string>
     <string name="message_welcome_two">Buenas tardes princesa valeria</string>
     <string name="message_welcome_three">No olvides dormir temprano valeria</string>
+    <string name="message_welcome_four">ya es hora de dormir valeria</string>
 
     <string name="message_home">Vale estas son tus canciones favoritas</string>
     <string name="message_movie">tus videos estan aqui vale</string>

@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.NonNull
-import com.meria.playtaylermel.DATA_DATA_MUSIC
+import com.meria.playtaylermel.util.DATA_DATA_MUSIC
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.model.MusicModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer

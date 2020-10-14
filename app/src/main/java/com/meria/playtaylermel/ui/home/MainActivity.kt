@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
-import com.meria.playtaylermel.Utils.isConnected
-import com.meria.playtaylermel.Utils.toastGeneric
+import com.meria.playtaylermel.util.Utils.isConnected
+import com.meria.playtaylermel.util.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
 import com.meria.playtaylermel.model.MusicModel

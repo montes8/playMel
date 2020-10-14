@@ -11,6 +11,7 @@ import android.graphics.PixelFormat
 import android.graphics.Point
 import android.media.MediaPlayer
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import android.view.*
@@ -18,6 +19,7 @@ import android.webkit.WebView
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.annotation.Nullable
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.meria.playtaylermel.R
@@ -37,7 +39,9 @@ class FloatingWidgetService : Service(), View.OnClickListener {
     internal var timeEnd: Long = 0
     private var minimise: View? = null
 
-
+    companion object {
+        const val ACTION_ENABLE_CAPTURE = "enable_capture"
+    }
 
     @Nullable
     override fun onBind(intent: Intent): IBinder? {
@@ -46,10 +50,22 @@ class FloatingWidgetService : Service(), View.OnClickListener {
 
     override fun onCreate() {
         super.onCreate()
-        //init WindowManager
+        if (Build.VERSION.SDK_INT >= 26) {
+            val channelID = "my_channel_01"
+            val channel = NotificationChannel(
+                channelID,
+                "Channel human readable title",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
+            val notification: Notification = Notification.Builder(this, channelID)
+                .setContentTitle("")
+                .setContentText("").build()
+            startForeground(1, notification)
+        }
+
         mWindowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         getWindowManagerDefaultDisplay()
-        //Init LayoutInflater
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.let {
             addFloatingWidgetView(inflater)
@@ -57,6 +73,7 @@ class FloatingWidgetService : Service(), View.OnClickListener {
             implementTouchListenerToFloatingWidgetView()
             updateExpandedView()
         }
+
     }
 
 
@@ -129,8 +146,10 @@ class FloatingWidgetService : Service(), View.OnClickListener {
                         timeStart = System.currentTimeMillis()
                         initialX = params.x
                         initialY = params.y
+
                         initialTouchX = event.rawX
                         initialTouchY = event.rawY
+
                         lastAction = event.action
                         return true
                     }
@@ -140,7 +159,10 @@ class FloatingWidgetService : Service(), View.OnClickListener {
                         val yDiff = yCord - initialTouchY
                         if (abs(xDiff) < 5 && abs(yDiff) < 5) {
                             if (timeEnd - timeStart < 300) {
+                                // expandedView?.visibleCustom()
+                                // getIntent()
                                 clickButtonFloating()
+
                             }
 
                         }
@@ -161,18 +183,19 @@ class FloatingWidgetService : Service(), View.OnClickListener {
     }
 
     private fun implementClickListeners() {
-        mFloatingWidgetView?.findViewById<ImageView>(R.id.close_floating_view)?.setOnClickListener(this)
-        mFloatingWidgetView?.findViewById<ImageButton>(R.id.collapsed_iv)?.setOnClickListener(this)
+        mFloatingWidgetView?.findViewById<ImageView>(R.id.close_floating_view)
+            ?.setOnClickListener(this)
+        mFloatingWidgetView?.findViewById<ConstraintLayout>(R.id.collapseView)
+            ?.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when (v.id) {
             R.id.close_floating_view -> {
-                MediaPlayerSingleton.getInstanceMusic()?.stop()
                 stopSelf()
             }
 
-            R.id.collapsed_iv -> {
+            R.id.collapseView -> {
                 clickButtonFloating()
             }
         }
@@ -185,6 +208,7 @@ class FloatingWidgetService : Service(), View.OnClickListener {
         stopSelf()
 
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
