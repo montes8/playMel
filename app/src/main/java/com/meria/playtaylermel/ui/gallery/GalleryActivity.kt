@@ -52,7 +52,7 @@ class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerLi
         adapter = ImageAdapter()
         rvImages.adapter = adapter
         thread(start = true) {
-            imagesList.add(ImageModel(path = ""))
+            imagesList.add(ImageModel(id = 0,path = ""))
             val imagesListUpdate =
                 PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
             if (imagesListUpdate.isNotEmpty()) {
@@ -132,8 +132,8 @@ class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerLi
 
     override fun onGetImageCameraCompleted(path: String, img: Bitmap) {
         thread(start = true) {
-            PlayApplication.database?.musicDao()?.insertImage(ImageModel(path = path))
-            imagesList.add(ImageModel(path = ""))
+            PlayApplication.database?.musicDao()?.insertImage(ImageModel(id = 0,path = path))
+            imagesList.add(ImageModel(path = "",id = 0))
             val imagesListUpdate =
                 PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
             imagesList.addAll(imagesListUpdate)
