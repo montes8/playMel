@@ -4,6 +4,7 @@ package com.meria.playtaylermel.ui.detail.music
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
@@ -16,6 +17,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.meria.playtaylermel.R
+import com.meria.playtaylermel.application.PlayApplication
 import com.meria.playtaylermel.util.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.formatTimePlayer
 import com.meria.playtaylermel.model.MediaPlayerSingleton
@@ -25,6 +27,7 @@ import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import com.meria.playtaylermel.ui.gallery.GalleryActivity
 import com.meria.playtaylermel.ui.home.MainActivity
 import kotlinx.android.synthetic.main.activity_detail_music.*
+import java.io.File
 import kotlin.concurrent.thread
 
 
@@ -153,12 +156,49 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateImage()
+    }
+
+    private fun updateImage(){
+        thread(start = true){
+            val imagesListUpdate = PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
+            var positionImage = 0
+            while (positionImage<imagesListUpdate.size){
+            try {
+                Thread.sleep((7000).toLong())
+                     handler.post {
+                         updateImageBanner(imagesListUpdate[positionImage].path)
+                         positionImage++
+                         if (positionImage == imagesListUpdate.size){
+                             positionImage = 0
+                         }
+
+                     }
+
+                 }catch (e: Exception) {
+                e.printStackTrace() }
+
+            }
+
+        }
+
+    }
+
+    private fun updateImageBanner(imageUrl : String){
+        val path = File(imageUrl)
+        val imgGallery = BitmapFactory.decodeFile(path.absolutePath)
+        imageViewBanner.setImageBitmap(imgGallery)
+    }
+
     private fun initOnClick() {
         imgFastRewind.setOnClickListener(this)
         imgSkipPrevious.setOnClickListener(this)
         imgPlay.setOnClickListener(this)
         imgSkipNext.setOnClickListener(this)
         imgFastForward.setOnClickListener(this)
+        floatingActionGallery.setOnClickListener(this)
         floatingActionButtonService.setOnClickListener(this)
     }
 

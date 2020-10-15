@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.model.MusicModel
 import kotlinx.android.synthetic.main.activity_movies.*
+import kotlinx.android.synthetic.main.mold_toolbar.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
@@ -33,6 +34,7 @@ class MoviesActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
+        txtToolbar.text = getString(R.string.txt_toolbar_movi)
         textToSpeech = TextToSpeech(this, this)
         movieAdapter = MovieAdapter()
         rvListMovies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)

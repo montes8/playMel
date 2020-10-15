@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".application.PlayApplication"
@@ -24,7 +25,21 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity,UnusedAttribute">
-        <activity android:name=".ui.gallery.GalleryActivity"></activity>
+        <activity android:name=".ui.gallery.GalleryActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.meria.playtaylermel"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+
+        </provider>
         <activity
             android:name=".ui.detail.movie.MovieDetailActivity"
             android:launchMode="singleTop"

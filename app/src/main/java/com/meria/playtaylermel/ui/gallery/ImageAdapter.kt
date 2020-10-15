@@ -1,9 +1,10 @@
-package com.meria.playtaylermel.ui
+package com.meria.playtaylermel.ui.gallery
 
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.delayClickState
@@ -34,7 +35,11 @@ class ImageAdapter(var onClick: ((ImageModel) -> Unit)? = null, var onClickDelet
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ImageHolder {
-        return ImageHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_image, parent, false))
+        return ImageHolder(
+            LayoutInflater.from(
+                parent.context
+            ).inflate(R.layout.row_image, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -64,6 +69,7 @@ class ImageAdapter(var onClick: ((ImageModel) -> Unit)? = null, var onClickDelet
 
         if (position == 0) {
             holder.itemView.imgDeletePhoto.gone()
+            holder.itemView.imgGallery.scaleType = ImageView.ScaleType.CENTER
         }
 
         if (position != 0) {

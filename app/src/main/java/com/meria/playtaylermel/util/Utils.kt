@@ -23,6 +23,11 @@ object Utils {
             ?: false
     }
 
+    fun getImageBitmap(img : String):Bitmap?{
+        val path = File(img)
+        return BitmapFactory.decodeFile(path.absolutePath)
+    }
+
     fun messagePrincess(id : Int,context: Context):String{
           return when(id){
             0->  context.resources.getString(R.string.message_welcome)

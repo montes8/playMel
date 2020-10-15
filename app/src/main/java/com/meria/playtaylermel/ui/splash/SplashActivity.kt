@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
     }
 
     private fun convertTextToSpeech() {
-        val text = messagePrincess(getTimeFromAndroid(),this)
+        val text = resources.getString(R.string.message_welcome)
         textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null,text)
     }
 

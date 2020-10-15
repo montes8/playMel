@@ -15,12 +15,13 @@ import com.meria.playtaylermel.R
 import com.meria.playtaylermel.application.PlayApplication
 import com.meria.playtaylermel.extensions.showDialogCustom
 import com.meria.playtaylermel.model.ImageModel
-import com.meria.playtaylermel.ui.ImageAdapter
-import com.meria.playtaylermel.ui.home.MainActivity
+import com.meria.playtaylermel.ui.gallery.detail.DetailImageDialogFragment
 import com.meria.playtaylermel.util.CameraController
+import com.meria.playtaylermel.util.Utils.getImageBitmap
 import com.meria.playtaylermel.util.Utils.toastGeneric
 import kotlinx.android.synthetic.main.activity_gallery.*
 import kotlinx.android.synthetic.main.dialog_delete_image.*
+import kotlinx.android.synthetic.main.mold_toolbar.*
 import kotlin.concurrent.thread
 
 class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerListener {
@@ -42,6 +43,7 @@ class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
+        txtToolbar.text = getString(R.string.txt_toolbar_gallery)
         initListImages()
 
     }
@@ -59,7 +61,7 @@ class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerLi
                 imagesList.addAll(imagesListUpdate)
             }
             handler.post {
-                adapter?.imagesList = imagesList
+                addListImageList()
             }
         }
     }
@@ -78,12 +80,12 @@ class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerLi
             dialogDeleteImage(it)
         }
         adapter?.onClickDetail = { url ->
-            /*   if (url.path.isNotEmpty()) {
-                   val imgUrl = getImageBitmap(url)
+               if (url.path.isNotEmpty()) {
+                   val imgUrl = getImageBitmap(url.path)
                    imgUrl.let {
-                       DetailImageDialogFragment.newInstance(url).show(supportFragmentManager, DetailImageDialogFragment::class.java.name)
+                       DetailImageDialogFragment.newInstance(url.path).show(supportFragmentManager, DetailImageDialogFragment::class.java.name)
                    }
-               }*/
+               }
         }
 
     }
@@ -130,8 +132,24 @@ class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerLi
     }
 
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        cameraManager?.onActivityResult(requestCode,resultCode,data)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        cameraManager?.onRequestPermissionsResult(requestCode,grantResults)
+    }
+
+
     override fun onGetImageCameraCompleted(path: String, img: Bitmap) {
         thread(start = true) {
+            imagesList.clear()
             PlayApplication.database?.musicDao()?.insertImage(ImageModel(id = 0,path = path))
             imagesList.add(ImageModel(path = "",id = 0))
             val imagesListUpdate =
