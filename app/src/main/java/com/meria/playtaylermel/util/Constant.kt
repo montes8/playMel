@@ -6,6 +6,7 @@ const val problemLog        : String = "PROBLEM_LOG"
 const val cantDelayButtonClick : String = "No se pudo bloquear el botón"
 
 const val DATA_DATA_MUSIC = "DATA_DATA_MUSIC"
+const val DATA_DATA_MOVIE = "DATA_DATA_MOVIE"
 const val DATA_IMG = "DATA_IMG"
 
 

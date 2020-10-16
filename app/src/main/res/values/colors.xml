@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F50057</color>
-    <color name="colorPrimaryDark">#FF4081</color>
+    <color name="colorPrimary">#fe81ca</color>
+    <color name="colorPrimaryDark">#fe81ca</color>
     <color name="colorAccent">#FF80AB</color>
 
 
@@ -9,6 +9,7 @@
     <color name="pink">#fe81ca</color>
 
     <color name="gray">#9E9E9E</color>
+    <color name="gray_100">#757575</color>
     <color name="gray_black">#212121</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>

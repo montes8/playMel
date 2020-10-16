@@ -1,4 +1,4 @@
-package com.meria.playtaylermel.ui.detail.movie
+package com.meria.playtaylermel.ui.detail.video
 
 import android.content.Context
 import android.content.Intent
@@ -10,15 +10,18 @@ import com.meria.playtaylermel.R
 import com.meria.playtaylermel.model.MusicModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import kotlinx.android.synthetic.main.activity_movie_detail.*
+import kotlinx.android.synthetic.main.activity_video_detail.*
+import kotlinx.android.synthetic.main.row_videos.*
 
-class MovieDetailActivity : AppCompatActivity() {
+class VideoDetailActivity : AppCompatActivity() {
 
     private var modelMusic : MusicModel? = null
 
+    private var flag = false
+
     companion object {
         fun newInstance(context: Context,model : MusicModel): Intent {
-            val intent =  Intent(context, MovieDetailActivity::class.java)
+            val intent =  Intent(context, VideoDetailActivity::class.java)
             intent.putExtra(DATA_DATA_MUSIC,model)
 
             return intent
@@ -28,7 +31,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_detail)
+        setContentView(R.layout.activity_video_detail)
         modelMusic = intent.getParcelableExtra(DATA_DATA_MUSIC)
         lifecycle.addObserver(youtubePlayerLandScape)
         youtubePlayerLandScape.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {

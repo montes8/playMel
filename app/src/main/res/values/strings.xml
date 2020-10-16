@@ -21,6 +21,8 @@
 
     <string name="txt_toolbar_movi">MIS VIDEOS</string>
 
+    <string name="txt_toolbar_movie">PELICULAS</string>
+
     <!--text camera-->
     <string name="Select_option">Select Option:</string>
 </resources>

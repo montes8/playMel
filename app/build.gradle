@@ -43,6 +43,7 @@ dependencies {
     implementation presentationDependencies.youtubeplayer
     implementation presentationDependencies.glide
     implementation presentationDependencies.exifinterface
+    implementation presentationDependencies.avi
 
 
     //Romm

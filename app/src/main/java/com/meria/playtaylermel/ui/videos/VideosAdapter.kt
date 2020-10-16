@@ -1,4 +1,4 @@
-package com.meria.playtaylermel.ui.movies
+package com.meria.playtaylermel.ui.videos
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,15 +9,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.model.MusicModel
-import com.meria.playtaylermel.ui.detail.movie.MovieDetailActivity
+import com.meria.playtaylermel.ui.detail.video.VideoDetailActivity
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import kotlinx.android.synthetic.main.row_movies.view.*
+import kotlinx.android.synthetic.main.row_videos.view.*
 
 
-class MovieAdapter (var onClickMusicSelected: ((Int) -> Unit)? = null) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class VideosAdapter : RecyclerView.Adapter<VideosAdapter.MovieViewHolder>() {
 
     private val lifecycle: Lifecycle? = null
+
+    init {
+        setHasStableIds(true)
+    }
 
     var list: ArrayList<MusicModel> = ArrayList()
         set(value) {
@@ -26,22 +30,21 @@ class MovieAdapter (var onClickMusicSelected: ((Int) -> Unit)? = null) : Recycle
 
         }
 
-    fun setUpdateItem(position: Int) {
-        val model = list[position]
-        model.play = true
-        list[position] = model
-        notifyItemChanged(position)
-
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val youTubePlayerView = LayoutInflater.from(parent.context).inflate(R.layout.row_movies, parent, false)
-
-
+        val youTubePlayerView =
+            LayoutInflater.from(parent.context).inflate(R.layout.row_videos, parent, false)
         return MovieViewHolder(youTubePlayerView)
 
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
 
 
     override fun getItemCount(): Int {
@@ -50,25 +53,34 @@ class MovieAdapter (var onClickMusicSelected: ((Int) -> Unit)? = null) : Recycle
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val model = list[position]
-        lifecycle?.addObserver( holder.itemView.youtubePlayerView)
-        holder.itemView.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+        holder.itemView.txtRowNameMusic.text = model.name
+        lifecycle?.addObserver(holder.itemView.youtubePlayerView)
+        holder.itemView.youtubePlayerView.addYouTubePlayerListener(object :
+            AbstractYouTubePlayerListener() {
             override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
                 val videoId = model.path
                 videoId.let {
                     youTubePlayer.loadVideo(it, 0f)
                 }
-                if (model.play){
+                if (model.play) {
                     youTubePlayer.play()
-                    Log.d("positionlistPlay",""+position)
-                }else{
+                    Log.d("positionlistPlay", "" + position)
+                } else {
                     youTubePlayer.pause()
-                    Log.d("positionlistPlay","fals")
+                    Log.d("positionlistPlay", "fals")
                 }
             }
         })
 
+
+
         holder.itemView.imgZoom.setOnClickListener {
-            holder.itemView.context.startActivity(MovieDetailActivity.newInstance( holder.itemView.context,model))
+            holder.itemView.context.startActivity(
+                VideoDetailActivity.newInstance(
+                    holder.itemView.context,
+                    model
+                )
+            )
         }
     }
 

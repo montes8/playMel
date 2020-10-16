@@ -23,9 +23,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="17dp"
-        android:layout_marginBottom="17dp"
+        android:visibility="visible"
+        android:layout_marginBottom="70dp"
         android:elevation="@dimen/size_ten"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_tab_24" />
+
+    <TextView
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="14sp"
+        android:lines="2"
+        android:layout_marginStart="@dimen/size_ten"
+        android:fontFamily="@font/dootype_italicbold"
+        android:id="@+id/txtRowNameMusic"
+        android:padding="@dimen/size_five"
+        android:textColor="@color/gray_100"
+        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

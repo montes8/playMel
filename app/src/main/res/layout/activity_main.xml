@@ -47,4 +47,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/pgLoadingFragment"
+        style="@style/AVLoadingIndicatorView.Large"
+        android:layout_width="78dp"
+        android:layout_height="65dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="8dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        app:indicatorColor="@color/colorAccent"
+        app:indicatorName="BallBeatIndicator"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

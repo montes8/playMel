@@ -25,27 +25,33 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity,UnusedAttribute">
-        <activity android:name=".ui.gallery.GalleryActivity"
+        <activity android:name=".ui.detail.movie.MovieActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".ui.movies.MoviesActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.gallery.GalleryActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.meria.playtaylermel"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-
         </provider>
+
         <activity
-            android:name=".ui.detail.movie.MovieDetailActivity"
+            android:name=".ui.detail.video.VideoDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.movies.MoviesActivity"
+            android:name=".ui.videos.VideosActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity

@@ -5,9 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ui.movies.MoviesActivity">
-
+    android:background="@drawable/background_splash"
+    tools:context=".ui.videos.VideosActivity">
     <include
         android:id="@+id/include"
         layout="@layout/mold_toolbar"
@@ -16,18 +15,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMovies"
+        android:id="@+id/rvListMovies"
         android:layout_width="match_parent"
         android:layout_height="@dimen/general"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        tools:listitem="@layout/row_music"
+        tools:listitem="@layout/row_videos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
         tools:itemCount="2" />
+
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/floatingMovies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:layout_marginEnd="@dimen/size_twenty"
+        android:layout_marginBottom="@dimen/size_twenty"
+        android:src="@drawable/ic_icon_movie"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

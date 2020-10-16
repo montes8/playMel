@@ -9,14 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
+import com.meria.playtaylermel.extensions.gone
 import com.meria.playtaylermel.util.Utils.isConnected
 import com.meria.playtaylermel.util.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
+import com.meria.playtaylermel.extensions.visible
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
-import com.meria.playtaylermel.ui.movies.MoviesActivity
+import com.meria.playtaylermel.ui.videos.VideosActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import kotlin.collections.ArrayList
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         floatingActionButton.setOnClickListener {
             if (isConnected(this)){
-                startActivity(MoviesActivity.newInstance(this))
+                startActivity(VideosActivity.newInstance(this))
             }else{
                 toastGeneric(this,resources.getString(R.string.txt_error_internet))
             }
@@ -56,10 +58,14 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initList(){
+        pgLoadingFragment.show()
+        pgLoadingFragment.visible()
         val songs = getMusic(Environment.getExternalStorageDirectory())
         for (item in songs){
             listMusic.add(MusicModel(name = item.name,path = item.path))
         }
+        pgLoadingFragment.hide()
+        pgLoadingFragment.gone()
         musicAdapter?.list = listMusic
         musicAdapter?.onClickMusicSelected ={
             MusicTemporal.addListMusic(listMusic)
@@ -73,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
       this.requestPermissionResultActivity(requestCode,grantResults){
           initList()
+
       }
     }
 
