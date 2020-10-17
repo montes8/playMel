@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,6 +19,7 @@ import com.meria.playtaylermel.util.REQUEST_PERMISSION_READING_STATE
 import com.meria.playtaylermel.util.Utils.toastGeneric
 import com.meria.playtaylermel.util.cantDelayButtonClick
 import com.meria.playtaylermel.util.problemLog
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 
@@ -27,14 +30,21 @@ fun Activity.permissionMusic(func: () -> Unit){
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, requiresPermission)) {
             func()
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(requiresPermission),
-                REQUEST_PERMISSION_READING_STATE
-            )
+            ActivityCompat.requestPermissions(this, arrayOf(requiresPermission), REQUEST_PERMISSION_READING_STATE)
         }
     } else {
         func()
     }
+}
 
+fun String.loadImageDetail(view: ImageView){
+    if (this.isNotEmpty()){
+        val path = File(this)
+        val imgGallery = BitmapFactory.decodeFile(path.absolutePath)
+        imgGallery?.let {
+            view.setImageBitmap(it)
+        }
+    }
 }
 
 fun Activity?.showDialogCustom(resourceId: Int, func: Dialog.() -> Unit) {

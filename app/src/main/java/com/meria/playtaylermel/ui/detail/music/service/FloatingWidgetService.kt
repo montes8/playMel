@@ -9,21 +9,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.graphics.Point
-import android.media.MediaPlayer
 import android.os.Build
-import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.annotation.Nullable
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.meria.playtaylermel.R
-import com.meria.playtaylermel.model.MediaPlayerSingleton
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
 import kotlin.math.abs
 
@@ -39,9 +34,6 @@ class FloatingWidgetService : Service(), View.OnClickListener {
     internal var timeEnd: Long = 0
     private var minimise: View? = null
 
-    companion object {
-        const val ACTION_ENABLE_CAPTURE = "enable_capture"
-    }
 
     @Nullable
     override fun onBind(intent: Intent): IBinder? {
@@ -157,14 +149,8 @@ class FloatingWidgetService : Service(), View.OnClickListener {
                         timeEnd = System.currentTimeMillis()
                         val xDiff = xCord - initialTouchX
                         val yDiff = yCord - initialTouchY
-                        if (abs(xDiff) < 5 && abs(yDiff) < 5) {
-                            if (timeEnd - timeStart < 300) {
-                                // expandedView?.visibleCustom()
-                                // getIntent()
-                                clickButtonFloating()
-
-                            }
-
+                        if (abs(xDiff) < 5 && abs(yDiff) < 5 && (timeEnd - timeStart < 300)) {
+                            clickButtonFloating()
                         }
                         lastAction = event.action
                         return true

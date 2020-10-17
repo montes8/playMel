@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.delayClickState
 import com.meria.playtaylermel.extensions.gone
+import com.meria.playtaylermel.extensions.loadImageDetail
 import com.meria.playtaylermel.model.ImageModel
 import kotlinx.android.synthetic.main.row_image.view.*
 import java.io.File
@@ -59,28 +60,16 @@ class ImageAdapter(var onClick: ((ImageModel) -> Unit)? = null, var onClickDelet
         val img = imagesList[position]
         holder.itemView.cardGallery.setOnClickListener {
             holder.itemView.cardGallery.delayClickState()
-            if (position == 0) {
-                onClick?.invoke(img)
-            }else{
-                onClickDetail?.invoke(img)
-            }
+            if (position == 0) { onClick?.invoke(img) }else{ onClickDetail?.invoke(img) }
         }
-
 
         if (position == 0) {
             holder.itemView.imgDeletePhoto.gone()
             holder.itemView.imgGallery.scaleType = ImageView.ScaleType.CENTER
+        }else{
+            img.path.loadImageDetail( holder.itemView.imgGallery)
         }
 
-        if (position != 0) {
-            if (img.path.isNotEmpty()){
-                val path = File(img.path)
-                val imgGallery = BitmapFactory.decodeFile(path.absolutePath)
-                imgGallery?.let {
-                    holder.itemView.imgGallery.setImageBitmap(it)
-                }
-            }
-        }
 
         holder.itemView.imgDeletePhoto.setOnClickListener {
             holder.itemView.imgDeletePhoto.delayClickState()

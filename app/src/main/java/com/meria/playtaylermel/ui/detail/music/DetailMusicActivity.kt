@@ -66,29 +66,25 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 audioManager?.setStreamVolume(AudioManager.STREAM_MUSIC,progress,0)
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
+                // not code
             }
-
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
+                // not code
             }
 
         })
 
         sbProgress.setOnSeekBarChangeListener(object  : OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                // not code
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
+                // not code
             }
-
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress)
             }
-
         })
 
     }
@@ -127,7 +123,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             } else{
                 toastGeneric(this,resources.getString(R.string.error_message_music_denied))
             }
-
         }
     }
 
@@ -171,19 +166,12 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                      handler.post {
                          updateImageBanner(imagesListUpdate[positionImage].path)
                          positionImage++
-                         if (positionImage == imagesListUpdate.size){
-                             positionImage = 0
-                         }
-
+                         if (positionImage == imagesListUpdate.size){ positionImage = 0 }
                      }
-
                  }catch (e: Exception) {
                 e.printStackTrace() }
-
             }
-
         }
-
     }
 
     private fun updateImageBanner(imageUrl : String){
@@ -263,14 +251,11 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                     positionCurrent =   MusicTemporal.getPositionCurrentMusic()
                     handler.post {
                         sbProgress.progress =  MusicTemporal.getPositionCurrentMusic()
-                        txtDuration.formatTimePlayer(   MusicTemporal.getPositionCurrentMusic())
-                    }
-
+                        txtDuration.formatTimePlayer(   MusicTemporal.getPositionCurrentMusic()) }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
-
         }
     }
 }
