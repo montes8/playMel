@@ -1,6 +1,5 @@
 package com.meria.playtaylermel.ui.gallery
 
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.delayClickState
 import com.meria.playtaylermel.extensions.gone
 import com.meria.playtaylermel.extensions.loadImageDetail
-import com.meria.playtaylermel.model.ImageModel
+import com.meria.playtaylermel.repository.database.entity.ImageModel
 import kotlinx.android.synthetic.main.row_image.view.*
 import java.io.File
 

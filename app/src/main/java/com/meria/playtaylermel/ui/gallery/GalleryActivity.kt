@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.application.PlayApplication
 import com.meria.playtaylermel.extensions.showDialogCustom
-import com.meria.playtaylermel.model.ImageModel
+import com.meria.playtaylermel.repository.database.entity.ImageModel
 import com.meria.playtaylermel.ui.gallery.detail.DetailImageDialogFragment
 import com.meria.playtaylermel.util.CameraController
 import com.meria.playtaylermel.util.Utils.getImageBitmap
@@ -54,7 +54,12 @@ class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerLi
         adapter = ImageAdapter()
         rvImages.adapter = adapter
         thread(start = true) {
-            imagesList.add(ImageModel(id = 0,path = ""))
+            imagesList.add(
+                ImageModel(
+                    id = 0,
+                    path = ""
+                )
+            )
             val imagesListUpdate =
                 PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
             if (imagesListUpdate.isNotEmpty()) {
@@ -150,8 +155,18 @@ class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerLi
     override fun onGetImageCameraCompleted(path: String, img: Bitmap) {
         thread(start = true) {
             imagesList.clear()
-            PlayApplication.database?.musicDao()?.insertImage(ImageModel(id = 0,path = path))
-            imagesList.add(ImageModel(path = "",id = 0))
+            PlayApplication.database?.musicDao()?.insertImage(
+                ImageModel(
+                    id = 0,
+                    path = path
+                )
+            )
+            imagesList.add(
+                ImageModel(
+                    path = "",
+                    id = 0
+                )
+            )
             val imagesListUpdate =
                 PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
             imagesList.addAll(imagesListUpdate)

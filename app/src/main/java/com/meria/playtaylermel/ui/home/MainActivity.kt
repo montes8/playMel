@@ -16,7 +16,7 @@ import com.meria.playtaylermel.extensions.permissionMusic
 import com.meria.playtaylermel.extensions.requestPermissionResultActivity
 import com.meria.playtaylermel.extensions.visible
 import com.meria.playtaylermel.model.MusicModel
-import com.meria.playtaylermel.model.MusicTemporal
+import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
 import com.meria.playtaylermel.ui.videos.VideosActivity
 import kotlinx.android.synthetic.main.activity_main.*

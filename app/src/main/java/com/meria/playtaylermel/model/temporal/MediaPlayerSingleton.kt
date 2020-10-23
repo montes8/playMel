@@ -1,4 +1,4 @@
-package com.meria.playtaylermel.model
+package com.meria.playtaylermel.model.temporal
 
 import android.media.MediaPlayer
 
@@ -11,6 +11,7 @@ object MediaPlayerSingleton : MediaPlayer(){
         mediaPlayerSingleton = MediaPlayer()
     }
 
-    fun getInstanceMusic () = mediaPlayerSingleton
+    fun getInstanceMusic () =
+        mediaPlayerSingleton
 
 }

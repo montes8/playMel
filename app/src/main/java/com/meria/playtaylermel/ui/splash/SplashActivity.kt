@@ -8,17 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.animationButton
 import com.meria.playtaylermel.extensions.animationTop
-import com.meria.playtaylermel.model.MusicTemporal
+import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import com.meria.playtaylermel.ui.home.MainActivity
 import kotlinx.android.synthetic.main.activity_aplash.*
 import java.util.*
 
 
-class SplashActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
+class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
 
-    private  var textToSpeech : TextToSpeech? = null
+    private var textToSpeech: TextToSpeech? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class SplashActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
 
     private fun convertTextToSpeech() {
         val text = resources.getString(R.string.message_welcome)
-        textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null,text)
+        textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
     }
 
     private fun initSplash() {
@@ -39,9 +39,10 @@ class SplashActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
         MusicTemporal.resetListMusic()
         val background = object : Thread() {
             override fun run() {
-                        sleep((3000).toLong())
+                sleep((3000).toLong())
                 startActivity(MainActivity.newInstance(this@SplashActivity))
-                finish() }
+                finish()
+            }
         }
         background.start()
     }

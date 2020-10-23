@@ -1,4 +1,6 @@
-package com.meria.playtaylermel.model
+package com.meria.playtaylermel.model.temporal
+
+import com.meria.playtaylermel.model.MusicModel
 
 object MusicTemporal {
 
@@ -6,7 +8,8 @@ object MusicTemporal {
     private var positionMusic = 0
     private var positionCurrent = 0
 
-    fun getListMusic()= dataList
+    fun getListMusic()=
+        dataList
 
 
     fun addListMusic(list : ArrayList<MusicModel>){
@@ -14,16 +17,18 @@ object MusicTemporal {
     }
 
     fun setPositionMusic(position : Int){
-        this.positionMusic = position
+        positionMusic = position
     }
 
-    fun getPositionMusic()= positionMusic
+    fun getPositionMusic()=
+        positionMusic
 
     fun setPositionCurrentMusic(currentPosition : Int){
         positionCurrent = currentPosition
     }
 
-    fun getPositionCurrentMusic()= positionCurrent
+    fun getPositionCurrentMusic()=
+        positionCurrent
 
 
 

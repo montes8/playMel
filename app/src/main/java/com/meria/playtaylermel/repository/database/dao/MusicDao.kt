@@ -1,11 +1,10 @@
-package com.meria.playtaylermel.db.dao
+package com.meria.playtaylermel.repository.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.meria.playtaylermel.model.ImageModel
-import com.meria.playtaylermel.model.MusicModel
+import com.meria.playtaylermel.repository.database.entity.ImageModel
 
 @Dao
 interface MusicDao {

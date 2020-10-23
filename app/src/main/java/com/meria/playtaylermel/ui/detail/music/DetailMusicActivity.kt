@@ -20,9 +20,9 @@ import com.meria.playtaylermel.R
 import com.meria.playtaylermel.application.PlayApplication
 import com.meria.playtaylermel.util.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.formatTimePlayer
-import com.meria.playtaylermel.model.MediaPlayerSingleton
+import com.meria.playtaylermel.model.temporal.MediaPlayerSingleton
 import com.meria.playtaylermel.model.MusicModel
-import com.meria.playtaylermel.model.MusicTemporal
+import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import com.meria.playtaylermel.ui.gallery.GalleryActivity
 import com.meria.playtaylermel.ui.home.MainActivity
@@ -247,7 +247,8 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             while (positionCurrent < duration) {
                 try {
                     Thread.sleep((500).toLong())
-                    MusicTemporal.setPositionCurrentMusic(MediaPlayerSingleton.getInstanceMusic()?.currentPosition ?: 0)
+                    MusicTemporal.setPositionCurrentMusic(
+                        MediaPlayerSingleton.getInstanceMusic()?.currentPosition ?: 0)
                     positionCurrent =   MusicTemporal.getPositionCurrentMusic()
                     handler.post {
                         sbProgress.progress =  MusicTemporal.getPositionCurrentMusic()
