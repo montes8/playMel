@@ -98,11 +98,11 @@ ext {
 
     //Android
     androidConfig = [
-            androidBuildToolsVersion        : "29.0.0",
-            androidMinSdkVersion            : 24,
-            androidTargetSdkVersion         : 29,
-            androidCompileSdkVersion        : 29,
-            androidapplicationId            : 'pe.solera.angloamericanaapp',
+            androidBuildToolsVersion        : "30.0.2",
+            androidMinSdkVersion            : 23,
+            androidTargetSdkVersion         : 30,
+            androidCompileSdkVersion        : 30,
+            androidapplicationId            : 'com.meria.playtaylermel',
             androidVersionCode              : 1,
             androidVersionName              : "1.0.0",
             androidTestInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
