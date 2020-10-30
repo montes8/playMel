@@ -11,3 +11,5 @@ const val DATA_IMG = "DATA_IMG"
 
 
 const val EMPTY = ""
+
+const val DEFAULT = 0

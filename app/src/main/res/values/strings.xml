@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Play Meli</string>
+    <string name="app_name">Play Meria</string>
 
 
     <string name="txt_error_internet">Necesitas una conexión a internet</string>
@@ -25,4 +25,6 @@
 
     <!--text camera-->
     <string name="Select_option">Select Option:</string>
+
+    <string name="txt_message_update_app">Hay una versión más reciente de la APP PLAY MERIA lista para su descarga. Por favor ve a Google Play Store para descargar la última versión.</string>
 </resources>

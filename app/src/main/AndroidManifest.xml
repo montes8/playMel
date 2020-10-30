@@ -46,6 +46,14 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <provider
+            android:name="com.huawei.agconnect.core.provider.AGConnectInitializeProvider"
+            android:authorities="${applicationId}.AGCInitializeProvider"
+            android:exported="false" />
+        <service
+            android:name="com.huawei.agconnect.core.ServiceDiscovery"
+            android:exported="false" />
+
         <activity
             android:name=".ui.detail.video.VideoDetailActivity"
             android:launchMode="singleTop"
