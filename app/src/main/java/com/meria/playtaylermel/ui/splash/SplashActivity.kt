@@ -26,7 +26,8 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,CheckUpd
 
     private var textToSpeech: TextToSpeech? = null
 
-
+    var client: AppUpdateClient? = null
+    var flag = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +41,8 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,CheckUpd
     }
 
     private fun checkUpdate() {
-        val client: AppUpdateClient = JosApps.getAppUpdateClient(this)
-        client.checkAppUpdate(this, this)
+        client = JosApps.getAppUpdateClient(this)
+        client?.checkAppUpdate(this, this)
     }
 
     override fun onMarketStoreError(p0: Int) {
@@ -60,21 +61,25 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,CheckUpd
                 intent.getIntExtra(UpdateKey.FAIL_CODE, DEFAULT)
             val rtnMessage = intent.getStringExtra(UpdateKey.FAIL_REASON)
             val info = intent.getSerializableExtra(UpdateKey.INFO)
-            if (info is ApkUpgradeInfo) {
-                val upgradeInfo = info
-                checkUpdatePop(false,upgradeInfo)
-                Log.d("dataUpdate","There is a new update")
-            }else{
-                initSplash()
-                Log.d("dataUpdate","onUpdateInfo status: $status, rtnCode: $rtnCode, rtnMessage: $rtnMessage")
+            if (flag){
+                flag = false
+                if (info is ApkUpgradeInfo) {
+                    val upgradeInfo = info
+                    checkUpdatePop(false, upgradeInfo )
+                    finish()
+                    Log.d("dataUpdate","There is a new update")
+                }else{
+                    initSplash()
+                    Log.d("dataUpdate","onUpdateInfo status: $status, rtnCode: $rtnCode, rtnMessage: $rtnMessage")
+                }
             }
+
 
         }
     }
 
     private fun checkUpdatePop(force: Boolean,apkUpgradeInfo : ApkUpgradeInfo) {
-        val client = JosApps.getAppUpdateClient(this)
-        client.showUpdateDialog(this, apkUpgradeInfo, force)
+        client?.showUpdateDialog(this, apkUpgradeInfo, force)
         Log.d("dataUpdateForc", "checkUpdatePop success")
     }
 

@@ -162,7 +162,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             var positionImage = 0
             while (positionImage<imagesListUpdate.size){
             try {
-                Thread.sleep((7000).toLong())
+                Thread.sleep((10000).toLong())
                      handler.post {
                          updateImageBanner(imagesListUpdate[positionImage].path)
                          positionImage++

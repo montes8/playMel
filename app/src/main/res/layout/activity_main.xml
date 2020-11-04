@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:layout_marginEnd="@dimen/size_twenty"
+        android:visibility="visible"
         android:layout_marginBottom="@dimen/size_twenty"
         android:src="@drawable/ic_musica_romantica"
         app:layout_constraintBottom_toBottomOf="parent"
