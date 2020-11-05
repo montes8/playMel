@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.view.View
 import com.huawei.hms.maps.*
 import com.huawei.hms.maps.model.LatLng
-import com.meria.playtaylermel.ui.map.IMapManager
+import com.meria.playtaylermel.manager.IMapManager
+
 
 class MapsManager : IMapManager, OnMapReadyCallback {
     private lateinit var mapView: MapView

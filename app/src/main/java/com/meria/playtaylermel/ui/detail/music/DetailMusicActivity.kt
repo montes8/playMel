@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.view.View
 import android.widget.SeekBar
@@ -35,7 +36,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     private var namesMusicList: ArrayList<MusicModel> = ArrayList()
     private var positionMusic: Int = 0
-    private var handler :Handler = Handler()
+    private var handler :Handler = Handler(Looper.getMainLooper())
     private val cod = 1222
 
     private var audioManager : AudioManager? = null

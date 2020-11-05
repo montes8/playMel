@@ -13,12 +13,13 @@ import com.meria.playtaylermel.util.DEFAULT
 
 class UpdateVersionManager (private val context: Activity, private val listener: IUpdateVersionManager):
     CheckUpdateCallBack {
-    private var client: AppUpdateClient = JosApps.getAppUpdateClient(context)
+    private var client: AppUpdateClient? = null
     var flag = true
 
 
     fun checkAppUpdate(){
-        client.checkAppUpdate(context, this)
+        client = JosApps.getAppUpdateClient(context)
+        client?.checkAppUpdate(context, this)
     }
 
     override fun onMarketStoreError(p0: Int) {
@@ -56,7 +57,7 @@ class UpdateVersionManager (private val context: Activity, private val listener:
     }
 
     private fun checkUpdatePop(apkUpgradeInfo : ApkUpgradeInfo) {
-        client.showUpdateDialog(context, apkUpgradeInfo, false)
+        client?.showUpdateDialog(context, apkUpgradeInfo, false)
         Log.d("dataUpdateForc", "checkUpdatePop success")
     }
 

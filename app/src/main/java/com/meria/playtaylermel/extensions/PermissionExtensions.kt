@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.Window
@@ -76,7 +77,7 @@ fun TextView.animationTop(){
 fun View?.delayClickState(timeMillis: Long = 300) {
     this?.let {
         it.apply { it.isEnabled = false }
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             it.apply { it.isEnabled = true }
         }, timeMillis)
     } ?: run {

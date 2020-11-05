@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -26,7 +27,7 @@ import kotlin.concurrent.thread
 
 class GalleryActivity : AppCompatActivity(), CameraController.CameraControllerListener {
 
-    var handler: Handler = Handler()
+    var handler: Handler = Handler(Looper.getMainLooper())
     private var cameraManager: CameraController? = null
 
     private var adapter: ImageAdapter? = null

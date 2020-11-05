@@ -19,10 +19,7 @@ import java.util.*
 
 class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateVersionManager {
 
-
     private var textToSpeech: TextToSpeech? = null
-
-
     private var updateVersionManager : UpdateVersionManager? = null
 
 
@@ -30,7 +27,6 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateV
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         checkUpdate()
-
     }
 
 
