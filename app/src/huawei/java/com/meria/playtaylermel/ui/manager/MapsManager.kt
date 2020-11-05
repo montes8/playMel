@@ -2,15 +2,22 @@ package com.meria.playtaylermel.ui.manager
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import com.huawei.hms.maps.*
 import com.huawei.hms.maps.model.LatLng
+import com.huawei.hms.maps.model.LatLngBounds
+import com.huawei.hms.maps.model.Marker
+import com.huawei.hms.maps.model.MarkerOptions
 import com.meria.playtaylermel.manager.IMapManager
+import com.meria.playtaylermel.util.Utils
 
 
 class MapsManager : IMapManager, OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var map: HuaweiMap
+    private lateinit var marker : Marker
 
     override fun configMap(context: Context, savedInstanceState: Bundle?) {
         val options = HuaweiMapOptions().apply {
@@ -44,7 +51,28 @@ class MapsManager : IMapManager, OnMapReadyCallback {
     override fun onLowMemory() = mapView.onLowMemory()
 
     override fun onMapReady(map: HuaweiMap?) {
-        map?.let { this.map = map }
+        map?.let { this.map = map
+
+            val builder = LatLngBounds.Builder()
+            Thread{
+                val list = Utils.listAddress()
+                Handler(Looper.getMainLooper()).post {
+                    list.forEach {
+                        marker = map.addMarker(
+                            MarkerOptions().position(LatLng(it.latitude, it.longitude)
+                        ).title(it.name))
+                        marker.tag = it
+
+                        builder.include(marker.position)
+                        val bounds : LatLngBounds = builder.build()
+                        val padding = 200 // offset from edges of the map in pixels
+                        val cu : CameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds,padding)
+                        map.moveCamera(cu)
+                    }
+                }
+            }.start()
+
+        }
         this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-12.0266034,-77.1278658), 6f))
     }
 }

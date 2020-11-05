@@ -100,9 +100,8 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     @SuppressLint("ObsoleteSdkInt")
     private fun createFloatingWidget() {
         if (!isPermissionGiven()) {
-            var intent: Intent? = null
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
+                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
                 startActivityForResult(intent, cod)
             }
         } else {

@@ -85,7 +85,6 @@ class HomeActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
       this.requestPermissionResultActivity(requestCode,grantResults){
           initList()
-
       }
     }
 

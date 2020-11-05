@@ -1,5 +1,6 @@
 package com.meria.playtaylermel.extensions
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
@@ -25,15 +26,9 @@ import java.util.concurrent.TimeUnit
 
 
 fun Activity.permissionMusic(func: () -> Unit){
-     val requiresPermission: String = android.Manifest.permission.READ_EXTERNAL_STORAGE
-    val permissionCheck = ContextCompat.checkSelfPermission(this, requiresPermission)
-    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, requiresPermission)) {
-            func()
-        } else {
-            ActivityCompat.requestPermissions(this, arrayOf(requiresPermission), REQUEST_PERMISSION_READING_STATE)
-        }
-    } else {
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_PERMISSION_READING_STATE)
+    }else{
         func()
     }
 }
