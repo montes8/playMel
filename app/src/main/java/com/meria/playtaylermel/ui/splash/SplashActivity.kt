@@ -10,7 +10,7 @@ import com.meria.playtaylermel.extensions.animationButton
 import com.meria.playtaylermel.extensions.animationTop
 import com.meria.playtaylermel.manager.IUpdateVersionManager
 import com.meria.playtaylermel.model.temporal.MusicTemporal
-import com.meria.playtaylermel.ui.UpdateVersionManager
+import com.meria.playtaylermel.ui.manager.UpdateVersionManager
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import com.meria.playtaylermel.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -21,6 +21,7 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateV
 
     private var textToSpeech: TextToSpeech? = null
     private var updateVersionManager : UpdateVersionManager? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +37,8 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateV
     }
 
     private fun checkUpdate() {
-        updateVersionManager = UpdateVersionManager(this,this)
+        updateVersionManager =
+            UpdateVersionManager(this, this)
         updateVersionManager?.checkAppUpdate()
     }
 

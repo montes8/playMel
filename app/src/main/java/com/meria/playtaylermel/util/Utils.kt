@@ -10,6 +10,7 @@ import androidx.exifinterface.media.ExifInterface
 import android.widget.Toast
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
 import com.meria.playtaylermel.R
+import com.meria.playtaylermel.model.AddressModel
 import java.io.File
 
 object Utils {
@@ -78,5 +79,15 @@ object Utils {
             }
         }
         return scaleFactor
+    }
+
+     fun listAddress():ArrayList<AddressModel>{
+        val list : ArrayList<AddressModel> = ArrayList()
+        list.add(AddressModel("Mega Plaza", "Alfreto Mendiola 3698,Independencia",-11.99405732, -77.06241231,"megaplaza"))
+        list.add(AddressModel("Royal Plaza", "Av.Carlos izaguirre 287-289,Independencia", -11.99041933, -77.06290144,"megaplaza"))
+        list.add(AddressModel("Plaza Norte", "Tomas Valle,Cercado de Lima 15311",-12.00681565, -77.05884285,"megaplaza"))
+        list.add(AddressModel("Real Plaza", "Av.Inca Garcilaso de la Vega 1337,Cercado de Lima",-12.05688609, -77.03773475,"megaplaza"))
+        list.add(AddressModel("Rambla", "Av.Brasil 702",-12.06631014, -77.04746379,"megaplaza"))
+       return list
     }
 }

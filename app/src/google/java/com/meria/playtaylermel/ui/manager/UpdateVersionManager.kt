@@ -1,4 +1,4 @@
-package com.meria.playtaylermel.ui
+package com.meria.playtaylermel.ui.manager
 
 import android.app.Activity
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
