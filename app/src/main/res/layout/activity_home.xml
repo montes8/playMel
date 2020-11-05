@@ -48,6 +48,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <ImageView
+        android:id="@+id/floatingActionButtonMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="@dimen/size_twenty"
+        android:visibility="visible"
+        android:layout_marginBottom="@dimen/size_twenty"
+        android:src="@drawable/ic_map_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/pgLoadingFragment"
         style="@style/AVLoadingIndicatorView.Large"

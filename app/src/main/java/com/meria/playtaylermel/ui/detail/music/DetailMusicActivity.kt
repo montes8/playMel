@@ -25,7 +25,7 @@ import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import com.meria.playtaylermel.ui.gallery.GalleryActivity
-import com.meria.playtaylermel.ui.home.MainActivity
+import com.meria.playtaylermel.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_detail_music.*
 import java.io.File
 import kotlin.concurrent.thread
@@ -92,7 +92,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         MediaPlayerSingleton.getInstanceMusic()?.stop()
         super.onBackPressed()
-        startActivity(MainActivity.newInstance(this))
+        startActivity(HomeActivity.newInstance(this))
 
     }
 

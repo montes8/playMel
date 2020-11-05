@@ -15,9 +15,9 @@ import com.meria.playtaylermel.extensions.animationButton
 import com.meria.playtaylermel.extensions.animationTop
 import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
-import com.meria.playtaylermel.ui.home.MainActivity
+import com.meria.playtaylermel.ui.home.HomeActivity
 import com.meria.playtaylermel.util.DEFAULT
-import kotlinx.android.synthetic.main.activity_aplash.*
+import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
 
 
@@ -31,9 +31,11 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,CheckUpd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_aplash)
+        setContentView(R.layout.activity_splash)
         checkUpdate()
+
     }
+
 
     private fun convertTextToSpeech() {
         val text = resources.getString(R.string.message_welcome)
@@ -97,7 +99,7 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,CheckUpd
         val background = object : Thread() {
             override fun run() {
                 sleep((3000).toLong())
-                startActivity(MainActivity.newInstance(this@SplashActivity))
+                startActivity(HomeActivity.newInstance(this@SplashActivity))
                 finish()
             }
         }

@@ -18,12 +18,13 @@ import com.meria.playtaylermel.extensions.visible
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
+import com.meria.playtaylermel.ui.map.MapsActivity
 import com.meria.playtaylermel.ui.videos.VideosActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_home.*
 import java.io.File
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private val listMusic : ArrayList<MusicModel> = ArrayList()
 
@@ -31,14 +32,14 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         fun newInstance(context: Context): Intent {
-            return Intent(context, MainActivity::class.java)
+            return Intent(context, HomeActivity::class.java)
         }
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
         musicAdapter = MusicAdapter()
         rvListMusic.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvListMusic.adapter = musicAdapter
@@ -52,6 +53,11 @@ class MainActivity : AppCompatActivity() {
             }else{
                 toastGeneric(this,resources.getString(R.string.txt_error_internet))
             }
+
+        }
+
+        floatingActionButtonMap.setOnClickListener {
+            startActivity(MapsActivity.newInstance(this))
 
         }
     }
