@@ -90,6 +90,9 @@ dependencies {
     implementation 'com.huawei.hms:base:5.0.0.300'
     implementation 'com.huawei.hms:game:4.0.3.301'
 
+    implementation 'com.google.android.play:core:1.8.3'
+    implementation 'com.google.android.play:core-ktx:1.8.1'
+
 
     //Romm
     implementation 'android.arch.persistence.room:runtime:1.1.1'

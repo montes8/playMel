@@ -44,6 +44,6 @@ class MapsManager : IMapManager, OnMapReadyCallback {
 
     override fun onMapReady(map: HuaweiMap?) {
         map?.let { this.map = map }
-        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(48.893478, 2.334595), 10f))
+        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-12.0266034,-77.1278658), 6f))
     }
 }

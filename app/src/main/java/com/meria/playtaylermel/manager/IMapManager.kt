@@ -1,4 +1,4 @@
-package com.meria.playtaylermel.ui.map
+package com.meria.playtaylermel.manager
 
 import android.content.Context
 import android.os.Bundle

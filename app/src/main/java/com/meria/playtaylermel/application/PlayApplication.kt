@@ -2,7 +2,7 @@ package com.meria.playtaylermel.application
 
 import android.app.Application
 import androidx.room.Room
-import com.meria.playtaylermel.di.mapModule
+import com.meria.playtaylermel.di.managerModule
 import com.meria.playtaylermel.repository.database.DemoDataBase
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,7 +23,7 @@ class PlayApplication : Application() {
             androidContext(this@PlayApplication)
             modules(
                 listOf(
-                    mapModule
+                    managerModule
                 )
             )
         }
