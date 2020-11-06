@@ -26,5 +26,12 @@
     <!--text camera-->
     <string name="Select_option">Select Option:</string>
 
+
     <string name="txt_message_update_app">Hay una versión más reciente de la APP PLAY MERIA lista para su descarga. Por favor ve a Google Play Store para descargar la última versión.</string>
+
+    <string name="default_notification_channel_id">VERBOSE_NOTIFICATION</string>
+
+
+
+
 </resources>

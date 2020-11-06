@@ -98,6 +98,9 @@ dependencies {
    // push google
     implementation 'com.google.firebase:firebase-messaging:20.1.5'
 
+    // push kit
+    implementation 'com.huawei.hms:push:5.0.0.300'
+
 
     //Romm
     implementation 'android.arch.persistence.room:runtime:1.1.1'
@@ -116,7 +119,7 @@ dependencies {
     googleImplementation 'com.google.maps.android:android-maps-utils:0.6.2'
 
     //map hawei
-    implementation 'com.huawei.hms:maps:5.0.2.300'
+    implementation 'com.huawei.hms:maps:5.0.1.300'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'

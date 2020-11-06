@@ -32,6 +32,7 @@ class MapsManager : IMapManager, OnMapReadyCallback {
                 savedInstanceState.getBundle("MAPVIEW_BUNDLE_KEY")
         }
         mapView = MapView(context, options).apply {
+            MapsInitializer.setApiKey("103166521")
             onCreate(mapViewBundle)
             getMapAsync(this@MapsManager)
         }
@@ -73,6 +74,5 @@ class MapsManager : IMapManager, OnMapReadyCallback {
             }.start()
 
         }
-        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-12.0266034,-77.1278658), 6f))
     }
 }

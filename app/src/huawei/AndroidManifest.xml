@@ -4,7 +4,7 @@
     <application>
         <meta-data
             android:name="com.huawei.hms.client.appid"
-            android:value="appid= your api key" />
+            android:value="CgB6e3x9/lg/dpZxOHpObNiIAd95BDBLKye5zVt+iHkCjimKGSBnV0kAEAGVIsKbjV6X3q0yBTecYAb3ls2ygeac" />
         <provider
             android:name="com.huawei.agconnect.core.provider.AGConnectInitializeProvider"
             android:authorities="${applicationId}.AGCInitializeProvider"
@@ -13,6 +13,18 @@
         <service
             android:name="com.huawei.agconnect.core.ServiceDiscovery"
             android:exported="false" />
+
+        <meta-data
+            android:name="push_kit_auto_init_enabled"
+            android:value="true" />
+
+        <service
+            android:name=".ui.manager.PlayMessagingServices"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

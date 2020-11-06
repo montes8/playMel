@@ -14,8 +14,8 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.ui.splash.SplashActivity
-import com.meria.playtaylermel.ui.utils.NOTIFICATION_ID
-import com.meria.playtaylermel.ui.utils.VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION
+import com.meria.playtaylermel.util.NOTIFICATION_ID
+import com.meria.playtaylermel.util.VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION
 import org.koin.core.KoinComponent
 
 

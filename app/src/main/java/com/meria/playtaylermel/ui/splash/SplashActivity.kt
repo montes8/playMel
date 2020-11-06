@@ -10,26 +10,22 @@ import com.meria.playtaylermel.extensions.animationButton
 import com.meria.playtaylermel.extensions.animationTop
 import com.meria.playtaylermel.manager.IUpdateVersionManager
 import com.meria.playtaylermel.model.temporal.MusicTemporal
-import com.meria.playtaylermel.ui.manager.UpdateVersionManager
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import com.meria.playtaylermel.ui.home.HomeActivity
+import com.meria.playtaylermel.ui.manager.UpdateVersionManager
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
-
 
 class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateVersionManager {
 
     private var textToSpeech: TextToSpeech? = null
     private var updateVersionManager : UpdateVersionManager? = null
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         checkUpdate()
     }
-
 
     private fun convertTextToSpeech() {
         val text = resources.getString(R.string.message_welcome)
