@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.huawei.agconnect.config.AGConnectServicesConfig
+import com.huawei.hms.aaid.HmsInstanceId
+import com.huawei.hms.common.ApiException
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.animationButton
 import com.meria.playtaylermel.extensions.animationTop
@@ -15,7 +18,7 @@ import com.meria.playtaylermel.ui.home.HomeActivity
 import com.meria.playtaylermel.ui.manager.UpdateVersionManager
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
-
+import com.meria.playtaylermel.util.TAG
 class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateVersionManager {
 
     private var textToSpeech: TextToSpeech? = null
@@ -24,7 +27,25 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateV
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        getToken()
         checkUpdate()
+    }
+
+    private fun getToken() {
+        object : Thread() {
+            override fun run() {
+                try {
+                    // read from agconnect-services.json
+                    val appId =
+                        AGConnectServicesConfig.fromContext(this@SplashActivity).getString("client/app_id")
+                    val token = HmsInstanceId.getInstance(this@SplashActivity).getToken(appId, "HCM")
+                    Log.d(TAG, "get token:$token")
+                } catch (e: ApiException) {
+                    Log.d(TAG, "get token failed, $e"
+                    )
+                }
+            }
+        }.start()
     }
 
     private fun convertTextToSpeech() {

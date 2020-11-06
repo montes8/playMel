@@ -32,7 +32,7 @@ class MapsManager : IMapManager, OnMapReadyCallback {
                 savedInstanceState.getBundle("MAPVIEW_BUNDLE_KEY")
         }
         mapView = MapView(context, options).apply {
-            MapsInitializer.setApiKey("103166521")
+            MapsInitializer.setApiKey("484360685040436224")
             onCreate(mapViewBundle)
             getMapAsync(this@MapsManager)
         }

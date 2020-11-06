@@ -1,5 +1,6 @@
 package com.meria.playtaylermel.ui.manager
 
+import android.R.id.message
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -12,13 +13,13 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.huawei.hms.push.HmsMessageService
 import com.huawei.hms.push.RemoteMessage
+import com.huawei.hms.push.SendException
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.ui.splash.SplashActivity
 import com.meria.playtaylermel.util.CODELABS_ACTION
 import com.meria.playtaylermel.util.NOTIFICATION_ID
 import com.meria.playtaylermel.util.TAG
 import com.meria.playtaylermel.util.VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION
-import java.util.*
 
 
 class PlayMessagingServices : HmsMessageService() {
@@ -36,6 +37,23 @@ class PlayMessagingServices : HmsMessageService() {
     }
 
     override fun onMessageReceived(message: RemoteMessage?) {
+        super.onMessageReceived(message)
+
+        if (message?.notification != null) {
+            makeStatusNotification(
+               message.notification?.body,
+               message.notification?.title
+            )
+        }
+        if (message?.data?.isNotEmpty() == true) {
+            makeStatusNotification(
+                message.notification?.body,
+                message.notification?.title
+            )
+        }
+    }
+
+  /*  override fun onMessageReceived(message: RemoteMessage?) {
         if (message?.notification != null) {
             makeStatusNotification(
                 message.notification?.body,
@@ -87,7 +105,7 @@ class PlayMessagingServices : HmsMessageService() {
             // Process message within 10s
             processWithin10s(message)
         }
-    }
+    }*/
 
 
     private fun makeStatusNotification(message: String?, title: String?) {
@@ -122,7 +140,40 @@ class PlayMessagingServices : HmsMessageService() {
     }
 
     private fun processWithin10s(message: RemoteMessage) {
-        Log.d(TAG, "Processing now.")
+        Log.d("message", "Processing now.$message")
+    }
+
+    override fun onMessageSent(msgId: String) {
+        Log.d("onMessageSent",
+            "onMessageSent called, Message id:$msgId"
+        )
+        val intent = Intent()
+        intent.action = CODELABS_ACTION
+        intent.putExtra("method", "onMessageSent")
+        intent.putExtra("msg", "onMessageSent called, Message id:$msgId")
+        sendBroadcast(intent)
+    }
+
+    override fun onSendError(msgId: String, exception: Exception) {
+        Log.d("onSendError",
+            "onSendError called, message id:" + msgId + ", ErrCode:"
+                    + (exception as SendException).errorCode + ", description:" + exception.message
+        )
+        val intent = Intent()
+        intent.action = CODELABS_ACTION
+        intent.putExtra("method", "onSendError")
+        intent.putExtra(
+            "msg", "onSendError called, message id:" + msgId + ", ErrCode:"
+                    + exception.errorCode + ", description:" + exception.message
+        )
+        sendBroadcast(intent)
+    }
+
+    override fun onTokenError(e: Exception?) {
+        super.onTokenError(e)
+        Log.d("onTokenError",
+            "onMessageSent called, Message id:${e?.message}"
+        )
     }
 
 }
