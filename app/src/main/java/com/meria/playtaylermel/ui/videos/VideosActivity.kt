@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.ui.movies.MoviesActivity
+import kotlinx.android.synthetic.main.activity_video_detail.*
 import kotlinx.android.synthetic.main.activity_videos.*
 import kotlinx.android.synthetic.main.mold_toolbar.*
 import java.util.*
@@ -54,9 +55,14 @@ class VideosActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
     }
 
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        movieAdapter?.removeLifecycle()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-
+        movieAdapter?.removeLifecycle()
     }
 
     private fun convertTextToSpeech() {

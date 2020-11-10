@@ -42,4 +42,14 @@ class VideoDetailActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        youtubePlayerLandScape.release()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        youtubePlayerLandScape.release()
+    }
 }

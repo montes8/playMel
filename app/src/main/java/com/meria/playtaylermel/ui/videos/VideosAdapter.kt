@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.row_videos.view.*
 class VideosAdapter : RecyclerView.Adapter<VideosAdapter.MovieViewHolder>() {
 
     private val lifecycle: Lifecycle? = null
+    private var  flagInitial:Boolean = true
 
     init {
         setHasStableIds(true)
@@ -30,6 +31,10 @@ class VideosAdapter : RecyclerView.Adapter<VideosAdapter.MovieViewHolder>() {
 
         }
 
+   fun removeLifecycle(){
+       flagInitial = false
+       notifyDataSetChanged()
+   }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val youTubePlayerView =
@@ -53,6 +58,10 @@ class VideosAdapter : RecyclerView.Adapter<VideosAdapter.MovieViewHolder>() {
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val model = list[position]
+        if (!flagInitial){
+            holder.itemView.youtubePlayerView.release()
+            return
+        }
         holder.itemView.txtRowNameMusic.text = model.name
         lifecycle?.addObserver(holder.itemView.youtubePlayerView)
         holder.itemView.youtubePlayerView.addYouTubePlayerListener(object :

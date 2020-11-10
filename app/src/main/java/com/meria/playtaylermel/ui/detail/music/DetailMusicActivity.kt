@@ -166,7 +166,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                      handler.post {
                          updateImageBanner(imagesListUpdate[positionImage].path)
                          positionImage++
-                         if (positionImage == imagesListUpdate.size){ positionImage = 0 }
+                         if (positionImage == imagesListUpdate.size-1){ positionImage = 0 }
                      }
                  }catch (e: Exception) {
                 e.printStackTrace() }
