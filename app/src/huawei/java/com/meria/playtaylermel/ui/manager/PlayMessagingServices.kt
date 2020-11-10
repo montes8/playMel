@@ -1,6 +1,6 @@
 package com.meria.playtaylermel.ui.manager
 
-import android.R.id.message
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -20,6 +20,7 @@ import com.meria.playtaylermel.util.CODELABS_ACTION
 import com.meria.playtaylermel.util.NOTIFICATION_ID
 import com.meria.playtaylermel.util.TAG
 import com.meria.playtaylermel.util.VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION
+import java.util.*
 
 
 class PlayMessagingServices : HmsMessageService() {
@@ -37,23 +38,6 @@ class PlayMessagingServices : HmsMessageService() {
     }
 
     override fun onMessageReceived(message: RemoteMessage?) {
-        super.onMessageReceived(message)
-
-        if (message?.notification != null) {
-            makeStatusNotification(
-               message.notification?.body,
-               message.notification?.title
-            )
-        }
-        if (message?.data?.isNotEmpty() == true) {
-            makeStatusNotification(
-                message.notification?.body,
-                message.notification?.title
-            )
-        }
-    }
-
-  /*  override fun onMessageReceived(message: RemoteMessage?) {
         if (message?.notification != null) {
             makeStatusNotification(
                 message.notification?.body,
@@ -66,11 +50,6 @@ class PlayMessagingServices : HmsMessageService() {
                 message.notification?.title
             )
         }
-
-
-
-
-
 
 
         Log.d(TAG, "onMessageReceived is called")
@@ -105,7 +84,7 @@ class PlayMessagingServices : HmsMessageService() {
             // Process message within 10s
             processWithin10s(message)
         }
-    }*/
+    }
 
 
     private fun makeStatusNotification(message: String?, title: String?) {

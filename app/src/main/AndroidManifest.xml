@@ -14,12 +14,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
-    <permission
-        android:name="${applicationId}.permission.PROCESS_PUSH_MSG"
-        android:protectionLevel="signatureOrSystem"/>
-    <!--Receive PUSH TOKEN Radio and PUSH Message needs to define this permission ${PACKAGE_NAME} To replace the package name you applied -->
-    <uses-permission android:name="${applicationId}.permission.PROCESS_PUSH_MSG" />
     <uses-permission android:name="com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA"/>
 
     <application
