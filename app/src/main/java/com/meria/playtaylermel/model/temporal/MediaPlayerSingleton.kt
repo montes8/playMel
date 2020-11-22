@@ -14,4 +14,5 @@ object MediaPlayerSingleton : MediaPlayer(){
     fun getInstanceMusic () =
         mediaPlayerSingleton
 
+
 }

@@ -7,10 +7,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.AudioManager
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.provider.Settings
 import android.view.View
 import android.widget.SeekBar
@@ -19,14 +16,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.application.PlayApplication
-import com.meria.playtaylermel.util.Utils.toastGeneric
 import com.meria.playtaylermel.extensions.formatTimePlayer
-import com.meria.playtaylermel.model.temporal.MediaPlayerSingleton
 import com.meria.playtaylermel.model.MusicModel
+import com.meria.playtaylermel.model.temporal.MediaPlayerSingleton
 import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
 import com.meria.playtaylermel.ui.gallery.GalleryActivity
 import com.meria.playtaylermel.ui.home.HomeActivity
+import com.meria.playtaylermel.util.Utils.toastGeneric
 import kotlinx.android.synthetic.main.activity_detail_music.*
 import java.io.File
 import kotlin.concurrent.thread
@@ -38,7 +35,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private var positionMusic: Int = 0
     private var handler :Handler = Handler(Looper.getMainLooper())
     private val cod = 1222
-
+    var positionImage = 0
     private var audioManager : AudioManager? = null
 
     companion object {
@@ -57,9 +54,8 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         seekBarAudio.progress= audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?:0
         initUpdateProgress()
         initOnClick()
+        updateImage()
         playMusic(namesMusicList[positionMusic].path)
-
-
     }
 
     private fun initUpdateProgress(){
@@ -91,11 +87,12 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        MediaPlayerSingleton.getInstanceMusic()?.stop()
         super.onBackPressed()
         startActivity(HomeActivity.newInstance(this))
-
+        MediaPlayerSingleton.getInstanceMusic()?.stop()
+//        updateImageTime().cancel()
     }
+
 
     @SuppressLint("ObsoleteSdkInt")
     private fun createFloatingWidget() {
@@ -148,12 +145,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             it.reset()
             musicNext()
         }
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateImage()
     }
 
     private fun updateImage(){
@@ -161,15 +152,15 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             val imagesListUpdate = PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
             var positionImage = 0
             while (positionImage<imagesListUpdate.size){
-            try {
-                Thread.sleep((10000).toLong())
-                     handler.post {
-                         updateImageBanner(imagesListUpdate[positionImage].path)
-                         positionImage++
-                         if (positionImage == imagesListUpdate.size-1){ positionImage = 0 }
-                     }
-                 }catch (e: Exception) {
-                e.printStackTrace() }
+                try {
+                    Thread.sleep((10000).toLong())
+                    handler.post {
+                        updateImageBanner(imagesListUpdate[positionImage].path)
+                        positionImage++
+                        if (positionImage == imagesListUpdate.size-1){ positionImage = 0 }
+                    }
+                }catch (e: Exception) {
+                    e.printStackTrace() }
             }
         }
     }
@@ -236,6 +227,11 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             MusicTemporal.setPositionMusic(positionMusic)
             playMusic(namesMusicList[positionMusic].path)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MediaPlayerSingleton.getInstanceMusic()?.stop()
     }
 
     private fun initProgress() {

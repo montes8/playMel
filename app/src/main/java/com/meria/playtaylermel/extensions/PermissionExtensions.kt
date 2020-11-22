@@ -61,6 +61,12 @@ fun View.visible() {
 }
 
 
+fun View.flagViewState(flag : Boolean) {
+    if (flag)this.visible() else this.gone()
+
+}
+
+
 
 fun TextView.animationTop(){
     val ani = AnimationUtils.loadAnimation(this.context, R.anim.top_in)

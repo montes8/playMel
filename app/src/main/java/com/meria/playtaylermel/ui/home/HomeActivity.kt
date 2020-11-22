@@ -9,18 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
-import com.meria.playtaylermel.extensions.gone
+import com.meria.playtaylermel.extensions.*
 import com.meria.playtaylermel.util.Utils.isConnected
 import com.meria.playtaylermel.util.Utils.toastGeneric
-import com.meria.playtaylermel.extensions.permissionMusic
-import com.meria.playtaylermel.extensions.requestPermissionResultActivity
-import com.meria.playtaylermel.extensions.visible
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
 import com.meria.playtaylermel.ui.map.MapsActivity
 import com.meria.playtaylermel.ui.videos.VideosActivity
 import kotlinx.android.synthetic.main.activity_home.*
+import org.koin.android.BuildConfig
 import java.io.File
 import kotlin.collections.ArrayList
 
@@ -56,6 +54,7 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
+        floatingActionButtonMap.flagViewState(BuildConfig.DEBUG)
         floatingActionButtonMap.setOnClickListener {
             startActivity(MapsActivity.newInstance(this))
 

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.ui.movies.MoviesActivity
-import kotlinx.android.synthetic.main.activity_video_detail.*
 import kotlinx.android.synthetic.main.activity_videos.*
 import kotlinx.android.synthetic.main.mold_toolbar.*
 import java.util.*
@@ -49,6 +48,7 @@ class VideosActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
         movieAdapter?.list = listMovie
         floatingMovies.setOnClickListener {
             startActivity(MoviesActivity.newInstance(this))
+            movieAdapter?.removeLifecycle()
             finish()
         }
 
