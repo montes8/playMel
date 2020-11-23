@@ -1,6 +1,5 @@
 package com.meria.playtaylermel.ui.detail.music
 
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -28,14 +27,13 @@ import kotlinx.android.synthetic.main.activity_detail_music.*
 import java.io.File
 import kotlin.concurrent.thread
 
-
 class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     private var namesMusicList: ArrayList<MusicModel> = ArrayList()
     private var positionMusic: Int = 0
     private var handler :Handler = Handler(Looper.getMainLooper())
     private val cod = 1222
-    var positionImage = 0
+    private var flagImg = false
     private var audioManager : AudioManager? = null
 
     companion object {
@@ -56,6 +54,13 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         initOnClick()
         updateImage()
         playMusic(namesMusicList[positionMusic].path)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (flagImg){
+            flagImg = false
+        }
     }
 
     private fun initUpdateProgress(){
@@ -89,8 +94,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(HomeActivity.newInstance(this))
-        MediaPlayerSingleton.getInstanceMusic()?.stop()
-//        updateImageTime().cancel()
+       // MediaPlayerSingleton.getInstanceMusic()?.stop()
     }
 
 
@@ -150,6 +154,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private fun updateImage(){
         thread(start = true){
             val imagesListUpdate = PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
+            flagImg = imagesListUpdate.isEmpty()
             var positionImage = 0
             while (positionImage<imagesListUpdate.size){
                 try {
@@ -229,10 +234,6 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        MediaPlayerSingleton.getInstanceMusic()?.stop()
-    }
 
     private fun initProgress() {
         thread(start = true){

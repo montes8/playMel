@@ -158,7 +158,7 @@ class FloatingWidgetService : Service(), View.OnClickListener {
                     MotionEvent.ACTION_MOVE -> {
                         params.x = initialX + (event.rawX - initialTouchX).toInt()
                         params.y = initialY + (event.rawY - initialTouchY).toInt()
-                        mWindowManager!!.updateViewLayout(mFloatingWidgetView, params)
+                        mWindowManager?.updateViewLayout(mFloatingWidgetView, params)
                         lastAction = event.action
                         return true
                     }
