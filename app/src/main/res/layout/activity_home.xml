@@ -55,6 +55,7 @@
         android:backgroundTint="@color/white"
         android:layout_marginStart="@dimen/size_twenty"
         android:visibility="visible"
+        android:contentDescription="@null"
         android:layout_marginBottom="@dimen/size_twenty"
         android:src="@drawable/ic_map_logo"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -103,8 +103,8 @@ ext {
             androidTargetSdkVersion         : 30,
             androidCompileSdkVersion        : 30,
             androidapplicationId            : 'com.meria.playtaylermel',
-            androidVersionCode              : 5,
-            androidVersionName              : "1.1.3",
+            androidVersionCode              : 6,
+            androidVersionName              : "1.1.4",
             androidTestInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
             kotlinVersion                   : kotlinVersion
     ]

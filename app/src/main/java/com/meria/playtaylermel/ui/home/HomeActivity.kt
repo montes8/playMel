@@ -8,6 +8,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.huawei.hms.api.ConnectionResult
+import com.huawei.hms.api.HuaweiApiAvailability
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.*
 import com.meria.playtaylermel.util.Utils.isConnected
@@ -18,7 +20,6 @@ import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
 import com.meria.playtaylermel.ui.map.MapsActivity
 import com.meria.playtaylermel.ui.videos.VideosActivity
 import kotlinx.android.synthetic.main.activity_home.*
-import org.koin.android.BuildConfig
 import java.io.File
 import kotlin.collections.ArrayList
 
@@ -54,11 +55,20 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
-        floatingActionButtonMap.flagViewState(BuildConfig.DEBUG)
+        floatingActionButtonMap.flagViewState(true)
         floatingActionButtonMap.setOnClickListener {
-            startActivity(MapsActivity.newInstance(this))
+            if (isCastApiAvailable()){
+                startActivity(MapsActivity.newInstance(this))
+            }else{
+                toastGeneric(this,"No tiene el hms")
+            }
 
         }
+    }
+
+    private fun isCastApiAvailable(): Boolean {
+        return (isConnected(this)
+                && HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(this) == ConnectionResult.SUCCESS)
     }
 
 
