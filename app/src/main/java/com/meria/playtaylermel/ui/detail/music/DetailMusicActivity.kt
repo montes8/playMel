@@ -88,13 +88,12 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                 MediaPlayerSingleton.getInstanceMusic()?.seekTo(sbProgress.progress)
             }
         })
-
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(HomeActivity.newInstance(this))
-       // MediaPlayerSingleton.getInstanceMusic()?.stop()
+        MediaPlayerSingleton.getInstanceMusic()?.stop()
     }
 
 

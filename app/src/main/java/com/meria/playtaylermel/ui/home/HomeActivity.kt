@@ -54,8 +54,6 @@ class HomeActivity : AppCompatActivity() {
             }
 
         }
-
-        floatingActionButtonMap.flagViewState(true)
         floatingActionButtonMap.setOnClickListener {
             if (isCastApiAvailable()){
                 startActivity(MapsActivity.newInstance(this))

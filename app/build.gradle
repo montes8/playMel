@@ -15,8 +15,8 @@ android {
         applicationId androidConfig.androidapplicationId
         minSdkVersion androidConfig.androidMinSdkVersion
         targetSdkVersion androidConfig.androidTargetSdkVersion
-        versionCode androidConfig.androidVersionCode
-        versionName androidConfig.androidVersionName
+        versionCode 8
+        versionName "1.1.6"
         testInstrumentationRunner androidConfig.androidTestInstrumentationRunner
     }
     flavorDimensions "default"
