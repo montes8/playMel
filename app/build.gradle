@@ -122,6 +122,9 @@ dependencies {
     //map hawei
     implementation 'com.huawei.hms:maps:5.0.2.300'
 
+    //analitic hawei
+    implementation 'com.huawei.hms:hianalytics:5.0.3.300'
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.13'

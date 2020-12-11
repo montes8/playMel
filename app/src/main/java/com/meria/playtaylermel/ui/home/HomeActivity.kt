@@ -8,26 +8,35 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.huawei.hms.analytics.HiAnalytics
+import com.huawei.hms.analytics.HiAnalyticsInstance
+import com.huawei.hms.analytics.HiAnalyticsTools
+import com.huawei.hms.analytics.type.HAEventType.SUBMITSCORE
+import com.huawei.hms.analytics.type.HAParamType.SCORE
 import com.huawei.hms.api.ConnectionResult
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.meria.playtaylermel.R
-import com.meria.playtaylermel.extensions.*
-import com.meria.playtaylermel.util.Utils.isConnected
-import com.meria.playtaylermel.util.Utils.toastGeneric
+import com.meria.playtaylermel.extensions.gone
+import com.meria.playtaylermel.extensions.permissionMusic
+import com.meria.playtaylermel.extensions.requestPermissionResultActivity
+import com.meria.playtaylermel.extensions.visible
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
 import com.meria.playtaylermel.ui.map.MapsActivity
 import com.meria.playtaylermel.ui.videos.VideosActivity
+import com.meria.playtaylermel.util.Utils.isConnected
+import com.meria.playtaylermel.util.Utils.toastGeneric
 import kotlinx.android.synthetic.main.activity_home.*
 import java.io.File
-import kotlin.collections.ArrayList
+
 
 class HomeActivity : AppCompatActivity() {
 
     private val listMusic : ArrayList<MusicModel> = ArrayList()
 
     var musicAdapter : MusicAdapter? = null
+    var instance: HiAnalyticsInstance? = null
 
     companion object {
         fun newInstance(context: Context): Intent {
@@ -39,7 +48,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        instance = HiAnalytics.getInstance(this)
         musicAdapter = MusicAdapter()
+
+
         rvListMusic.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvListMusic.adapter = musicAdapter
         this.permissionMusic {
@@ -49,6 +61,7 @@ class HomeActivity : AppCompatActivity() {
         floatingActionButton.setOnClickListener {
             if (isConnected(this)){
                 startActivity(VideosActivity.newInstance(this))
+                reportAnswerEvt("siguiente videos","pantalla principal")
             }else{
                 toastGeneric(this,resources.getString(R.string.txt_error_internet))
             }
@@ -57,6 +70,7 @@ class HomeActivity : AppCompatActivity() {
         floatingActionButtonMap.setOnClickListener {
             if (isCastApiAvailable()){
                 startActivity(MapsActivity.newInstance(this))
+                reportAnswerEvt("siguiente mapas","pantalla principal")
             }else{
                 toastGeneric(this,"No tiene el hms")
             }
@@ -83,6 +97,7 @@ class HomeActivity : AppCompatActivity() {
         musicAdapter?.onClickMusicSelected ={
             MusicTemporal.addListMusic(listMusic)
             MusicTemporal.setPositionMusic(it)
+            reportAnswerEvt("siguiente detail musica","pantalla principal")
             startActivityForResult(DetailMusicActivity.newInstance(this),120)
         }
         Log.d("listMusic","$listMusic")
@@ -118,4 +133,15 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun reportAnswerEvt(nav: String,title : String) {
+        val bundle = Bundle()
+        bundle.putString("pantalla", title)
+        bundle.putString("navegacion", nav)
+
+
+        // Report a preddefined Event
+        instance?.onEvent("Answer", bundle)
+    }
+
 }
