@@ -15,8 +15,8 @@ android {
         applicationId androidConfig.androidapplicationId
         minSdkVersion androidConfig.androidMinSdkVersion
         targetSdkVersion androidConfig.androidTargetSdkVersion
-        versionCode 8
-        versionName "1.1.6"
+        versionCode 9
+        versionName "1.1.7"
         testInstrumentationRunner androidConfig.androidTestInstrumentationRunner
     }
     flavorDimensions "default"
@@ -124,6 +124,9 @@ dependencies {
 
     //analitic hawei
     implementation 'com.huawei.hms:hianalytics:5.0.3.300'
+
+    //location hawei
+    implementation 'com.huawei.hms:location:5.0.0.302'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'

@@ -11,10 +11,10 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA"/>
+    <uses-permission android:name="com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA" />
 
     <application
         android:name=".application.PlayApplication"
@@ -28,7 +28,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity,UnusedAttribute">
-        <activity android:name=".ui.map.MapsActivity"/>
+        <activity android:name=".ui.location.LocationActivity"></activity>
+        <activity android:name=".ui.map.MapsActivity" />
         <activity
             android:name=".ui.detail.movie.MovieActivity"
             android:launchMode="singleTop"
@@ -51,9 +52,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-
-
 
         <activity
             android:name=".ui.detail.video.VideoDetailActivity"
@@ -81,6 +79,7 @@
             android:name=".ui.home.HomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+
         <service
             android:name=".ui.detail.music.service.FloatingWidgetService"
             android:enabled="true"

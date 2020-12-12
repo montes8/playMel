@@ -6,6 +6,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -18,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.util.REQUEST_PERMISSION_READING_STATE
+import com.meria.playtaylermel.util.TAG
 import com.meria.playtaylermel.util.Utils.toastGeneric
 import com.meria.playtaylermel.util.cantDelayButtonClick
 import com.meria.playtaylermel.util.problemLog
@@ -31,6 +33,41 @@ fun Activity.permissionMusic(func: () -> Unit){
     }else{
         func()
     }
+}
+
+fun Activity.permissionLocation(){
+    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+        Log.i(TAG, "sdk < 28 Q")
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            val strings = arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            ActivityCompat.requestPermissions(this, strings, 1)
+        }
+    } else {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                "android.permission.ACCESS_BACKGROUND_LOCATION"
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            val strings = arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                "android.permission.ACCESS_BACKGROUND_LOCATION"
+            )
+            ActivityCompat.requestPermissions(this, strings, 2)
+        }
+    }
+
 }
 
 fun String.loadImageDetail(view: ImageView){

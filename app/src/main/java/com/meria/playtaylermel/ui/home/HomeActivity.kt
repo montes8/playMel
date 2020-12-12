@@ -16,13 +16,11 @@ import com.huawei.hms.analytics.type.HAParamType.SCORE
 import com.huawei.hms.api.ConnectionResult
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.meria.playtaylermel.R
-import com.meria.playtaylermel.extensions.gone
-import com.meria.playtaylermel.extensions.permissionMusic
-import com.meria.playtaylermel.extensions.requestPermissionResultActivity
-import com.meria.playtaylermel.extensions.visible
+import com.meria.playtaylermel.extensions.*
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
+import com.meria.playtaylermel.ui.location.LocationActivity
 import com.meria.playtaylermel.ui.map.MapsActivity
 import com.meria.playtaylermel.ui.videos.VideosActivity
 import com.meria.playtaylermel.util.Utils.isConnected
@@ -56,6 +54,7 @@ class HomeActivity : AppCompatActivity() {
         rvListMusic.adapter = musicAdapter
         this.permissionMusic {
             initList()
+            this.permissionLocation()
         }
 
         floatingActionButton.setOnClickListener {
@@ -75,6 +74,10 @@ class HomeActivity : AppCompatActivity() {
                 toastGeneric(this,"No tiene el hms")
             }
 
+        }
+
+        imgLocation.setOnClickListener {
+            startActivity(LocationActivity.newInstance(this))
         }
     }
 
@@ -107,6 +110,7 @@ class HomeActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
       this.requestPermissionResultActivity(requestCode,grantResults){
           initList()
+          this.permissionLocation()
       }
     }
 
