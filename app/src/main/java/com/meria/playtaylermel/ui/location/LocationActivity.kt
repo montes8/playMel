@@ -1,13 +1,18 @@
 package com.meria.playtaylermel.ui.location
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.location.Location
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import com.huawei.hmf.tasks.OnSuccessListener
 import com.huawei.hmf.tasks.Task
 import com.huawei.hms.common.ApiException
@@ -39,6 +44,41 @@ class LocationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
+
+        // check location permission
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            Log.i(TAG, "sdk < 28 Q")
+            if (checkSelfPermission(
+                    ACCESS_FINE_LOCATION
+                ) != PERMISSION_GRANTED
+                && checkSelfPermission(
+                    ACCESS_COARSE_LOCATION
+                ) != PERMISSION_GRANTED
+            ) {
+                val strings = arrayOf(
+                    ACCESS_FINE_LOCATION,
+                    ACCESS_COARSE_LOCATION
+                )
+                ActivityCompat.requestPermissions(this, strings, 1)
+            }
+        } else {
+            if (checkSelfPermission(
+                    ACCESS_FINE_LOCATION
+                ) != PERMISSION_GRANTED && checkSelfPermission(
+                    ACCESS_COARSE_LOCATION
+                ) != PERMISSION_GRANTED && checkSelfPermission(
+                    "android.permission.ACCESS_BACKGROUND_LOCATION"
+                ) != PERMISSION_GRANTED
+            ) {
+                val strings = arrayOf(
+                    ACCESS_FINE_LOCATION,
+                    ACCESS_COARSE_LOCATION,
+                    "android.permission.ACCESS_BACKGROUND_LOCATION"
+                )
+                ActivityCompat.requestPermissions(this, strings, 2)
+            }
+        }
+
 
         // create fusedLocationProviderClient
         mfusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)

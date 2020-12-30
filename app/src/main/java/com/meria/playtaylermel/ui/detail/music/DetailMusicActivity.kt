@@ -93,6 +93,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(HomeActivity.newInstance(this))
+        MusicTemporal.setPositionCurrentMusic(0)
         MediaPlayerSingleton.getInstanceMusic()?.stop()
     }
 
