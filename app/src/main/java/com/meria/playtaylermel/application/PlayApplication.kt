@@ -3,7 +3,7 @@ package com.meria.playtaylermel.application
 import android.app.Application
 import androidx.room.Room
 import com.meria.playtaylermel.di.managerModule
-import com.meria.playtaylermel.repository.database.DemoDataBase
+import com.meria.playtaylermel.repository.local.database.DemoDataBase
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

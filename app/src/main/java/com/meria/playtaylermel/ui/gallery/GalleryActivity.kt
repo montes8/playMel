@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.application.PlayApplication
 import com.meria.playtaylermel.extensions.showDialogCustom
-import com.meria.playtaylermel.repository.database.entity.ImageModel
+import com.meria.playtaylermel.repository.local.database.entity.ImageModel
 import com.meria.playtaylermel.ui.gallery.detail.DetailImageDialogFragment
 import com.meria.playtaylermel.util.CameraController
 import com.meria.playtaylermel.util.Utils.getImageBitmap

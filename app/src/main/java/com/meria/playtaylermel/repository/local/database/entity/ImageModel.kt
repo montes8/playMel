@@ -1,4 +1,4 @@
-package com.meria.playtaylermel.repository.database.entity
+package com.meria.playtaylermel.repository.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

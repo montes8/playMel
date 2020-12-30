@@ -1,5 +1,7 @@
 package com.meria.playtaylermel.ui.splash
 
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -20,6 +22,8 @@ import com.meria.playtaylermel.ui.manager.UpdateVersionManager
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
 import com.meria.playtaylermel.util.TAG
+import me.leolin.shortcutbadger.ShortcutBadger
+
 class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateVersionManager {
 
     private var textToSpeech: TextToSpeech? = null
@@ -77,6 +81,11 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateV
         background.start()
     }
 
+    override fun onResume() {
+        super.onResume()
+        clearAllNotifications()
+    }
+
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             val loc = Locale("es", "ES")
@@ -94,6 +103,13 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateV
     override fun onNotUpdateDialog() {
         initSplash()
     }
+
+    private fun clearAllNotifications(){
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancelAll()
+        ShortcutBadger.removeCount(this)
+    }
+
 
     override fun onShowUpdateDialog() {
        //not code

@@ -26,6 +26,7 @@ import com.meria.playtaylermel.ui.videos.VideosActivity
 import com.meria.playtaylermel.util.Utils.isConnected
 import com.meria.playtaylermel.util.Utils.toastGeneric
 import kotlinx.android.synthetic.main.activity_home.*
+import me.leolin.shortcutbadger.ShortcutBadger
 import java.io.File
 
 
@@ -48,6 +49,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         instance = HiAnalytics.getInstance(this)
         musicAdapter = MusicAdapter()
+        ShortcutBadger.applyCount(this, 1)
 
 
         rvListMusic.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)

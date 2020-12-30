@@ -9,7 +9,7 @@ import com.meria.playtaylermel.R
 import com.meria.playtaylermel.extensions.delayClickState
 import com.meria.playtaylermel.extensions.gone
 import com.meria.playtaylermel.extensions.loadImageDetail
-import com.meria.playtaylermel.repository.database.entity.ImageModel
+import com.meria.playtaylermel.repository.local.database.entity.ImageModel
 import kotlinx.android.synthetic.main.row_image.view.*
 import java.io.File
 

@@ -1,13 +1,15 @@
 package com.meria.playtaylermel.util
 
+import android.app.ActivityManager
+import android.app.ActivityManager.RunningAppProcessInfo
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
-import androidx.exifinterface.media.ExifInterface
 import android.widget.Toast
+import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
 import com.meria.playtaylermel.R
 import com.meria.playtaylermel.model.AddressModel
@@ -38,6 +40,24 @@ object Utils {
               else -> context.resources.getString(R.string.message_welcome_four)
           }
 
+    }
+
+    fun isAppIsInBackground(context: Context): Boolean {
+        var isInBackground = true
+        val am =
+            context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val runningProcesses =
+            am.runningAppProcesses
+        for (processInfo in runningProcesses) {
+            if (processInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                for (activeProcess in processInfo.pkgList) {
+                    if (activeProcess == context.packageName) {
+                        isInBackground = false
+                    }
+                }
+            }
+        }
+        return isInBackground
     }
 
     fun reduceBitmapSize(imageFilePath: File): Bitmap {

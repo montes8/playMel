@@ -8,18 +8,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:417464750515:android:8443473fd684548e247bc6",
+        "mobilesdk_app_id": "1:417464750515:android:b3ab018f7dc4e204247bc6",
         "android_client_info": {
           "package_name": "com.meria.playtaylermel"
         }
       },
       "oauth_client": [
         {
-          "client_id": "417464750515-pc3ghrd4gm2d3u16vve051r0iqq61mbq.apps.googleusercontent.com",
+          "client_id": "417464750515-8i00i9daol5t71g5s2ch8ko2bg360njq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.meria.playtaylermel",
-            "certificate_hash": "ae2e8cae181daae7c8de41724f0932b1eaaa7042"
+            "certificate_hash": "34969bab62185c292d642992d38490e003c3bc3a"
+          }
+        },
+        {
+          "client_id": "417464750515-ajjgkhgbsoiea55g4eet07t0aispgthg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meria.playtaylermel",
+            "certificate_hash": "2dd8ed1ab128130a5cfb84d1d98674b193af949b"
           }
         },
         {

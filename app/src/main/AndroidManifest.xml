@@ -28,7 +28,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity,UnusedAttribute">
-        <activity android:name=".ui.location.LocationActivity"></activity>
+        <activity android:name=".ui.location.LocationActivity"/>
         <activity android:name=".ui.map.MapsActivity" />
         <activity
             android:name=".ui.detail.movie.MovieActivity"
