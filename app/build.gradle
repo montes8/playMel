@@ -30,6 +30,8 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField "String", "KEY_AES", KEY_AES
+            buildConfigField "String", "IV_AES", IV_AES
             minifyEnabled true
             shrinkResources true
             buildConfigField "String", BASE_URL, CONFIG("production.server.url")
@@ -41,8 +43,8 @@ android {
 
         }
         debug {
-            //minifyEnabled true
-            //shrinkResources true
+            buildConfigField "String", "KEY_AES", KEY_AES
+            buildConfigField "String", "IV_AES", IV_AES
             buildConfigField "String", BASE_URL, CONFIG("qa.server.url")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string", "encryption_key", CONFIG("preferences.encryption")

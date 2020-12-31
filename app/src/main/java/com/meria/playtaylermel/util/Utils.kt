@@ -5,9 +5,12 @@ import android.app.ActivityManager.RunningAppProcessInfo
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Point
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
@@ -109,5 +112,30 @@ object Utils {
         list.add(AddressModel("Real Plaza", "Av.Inca Garcilaso de la Vega 1337,Cercado de Lima",-12.05688609, -77.03773475,"megaplaza"))
         list.add(AddressModel("Rambla", "Av.Brasil 702",-12.06631014, -77.04746379,"megaplaza"))
        return list
+    }
+
+
+    fun getWidth(context: Context): Int {
+      /*  val size = Point()
+        val windowsManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowsManager.defaultDisplay.getSize(size)
+        return size.x*/
+        return context.resources.displayMetrics.widthPixels
+    }
+
+    fun getHeight(context: Context): Int {
+      /*  val size = Point()
+        val windowsManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowsManager.defaultDisplay.getSize(size)
+        return size.y*/
+        return context.resources.displayMetrics.heightPixels
+    }
+
+    fun getDensity(context: Context): Float {
+     /*   val metrics = DisplayMetrics()
+        val windowsManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowsManager.defaultDisplay.getMetrics(metrics)
+        return metrics.density*/
+        return context.resources.displayMetrics.density
     }
 }

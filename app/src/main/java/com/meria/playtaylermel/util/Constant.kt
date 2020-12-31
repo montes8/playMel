@@ -19,3 +19,10 @@ const val NOTIFICATION_ID = 100
 const val VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION =
     "Shows notifications whenever work starts"
 const val CODELABS_ACTION = "com.huawei.codelabpush.action"
+
+
+const val AES_ENCRYPT_INSTANCE = "Aes is a class that can not be set up."
+const val CYPHER_INSTANCE = "AES/GCM/NoPadding"
+const val CYPHER_CBC_INSTANCE = "AES/CBC/PKCS5Padding"
+
+const val PLATFORM = "android"
