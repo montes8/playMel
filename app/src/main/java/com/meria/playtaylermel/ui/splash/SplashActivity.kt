@@ -55,7 +55,7 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateV
     }
 
     private fun convertTextToSpeech() {
-        val text = resources.getString(R.string.message_welcome)
+        val text = resources.getString(R.string.message_welcome_twoo)
         textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
     }
 

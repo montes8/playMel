@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.meria.playtaylermel.manager.IMapManager
+import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.util.Utils.listAddress
 
 
@@ -44,6 +45,10 @@ class MapsManager : IMapManager, OnMapReadyCallback {
     override fun onResume() = mapView.onResume()
 
     override fun onLowMemory() = mapView.onLowMemory()
+
+    override fun initListMarker(establishment: ArrayList<MusicModel>) {
+        TODO("Not yet implemented")
+    }
 
     override fun onMapReady(map: GoogleMap?) {
         map?.let { this.map = map
