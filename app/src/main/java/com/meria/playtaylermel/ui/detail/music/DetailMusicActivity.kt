@@ -6,26 +6,32 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.AudioManager
 import android.net.Uri
-import android.os.*
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.meria.playtaylermel.R
-import com.meria.playtaylermel.application.PlayApplication
+import com.meria.playtaylermel.extensions.fetchGalleryImages
+import com.meria.playtaylermel.extensions.flagViewState
 import com.meria.playtaylermel.extensions.formatTimePlayer
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.temporal.MediaPlayerSingleton
 import com.meria.playtaylermel.model.temporal.MusicTemporal
 import com.meria.playtaylermel.ui.detail.music.service.FloatingWidgetService
-import com.meria.playtaylermel.ui.gallery.GalleryActivity
 import com.meria.playtaylermel.ui.home.HomeActivity
 import com.meria.playtaylermel.util.Utils.toastGeneric
 import kotlinx.android.synthetic.main.activity_detail_music.*
 import java.io.File
 import kotlin.concurrent.thread
+
 
 class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -35,8 +41,9 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private val cod = 1222
     private var flagImg = false
     private var audioManager : AudioManager? = null
+    private var flagVisibility = true
 
-    companion object {
+        companion object {
         fun newInstance(context: Context): Intent {
             return  Intent(context, DetailMusicActivity::class.java)
         }
@@ -45,6 +52,8 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_music)
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         namesMusicList = MusicTemporal.getListMusic()
         positionMusic = MusicTemporal.getPositionMusic()
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -153,16 +162,17 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun updateImage(){
         thread(start = true){
-            val imagesListUpdate = PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
+            //val imagesListUpdate = PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
+            val imagesListUpdate = fetchGalleryImages(this)
             flagImg = imagesListUpdate.isEmpty()
             var positionImage = 0
             while (positionImage<imagesListUpdate.size){
                 try {
-                    Thread.sleep((10000).toLong())
+                    Thread.sleep((if (positionImage!= 0)10000 else 0).toLong())
                     handler.post {
-                        updateImageBanner(imagesListUpdate[positionImage].path)
+                        updateImageBanner(imagesListUpdate[positionImage])
                         positionImage++
-                        if (positionImage == imagesListUpdate.size-1){ positionImage = 0 }
+                        if (positionImage == imagesListUpdate.size){ positionImage = 0 }
                     }
                 }catch (e: Exception) {
                     e.printStackTrace() }
@@ -173,7 +183,12 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
     private fun updateImageBanner(imageUrl : String){
         val path = File(imageUrl)
         val imgGallery = BitmapFactory.decodeFile(path.absolutePath)
+        val width = imgGallery.width
+        val heigth = imgGallery.height
         imageViewBanner.setImageBitmap(imgGallery)
+        imageTwo.setImageBitmap(imgGallery)
+        imageThree.setImageBitmap(imgGallery)
+        imageFour.setImageBitmap(imgGallery)
     }
 
     private fun initOnClick() {
@@ -210,7 +225,8 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
             R.id.floatingActionButtonService->{ createFloatingWidget() }
 
             R.id.floatingActionGallery->{
-                startActivity(GalleryActivity.newInstance(this))
+                visibilityView( )
+                //startActivity(GalleryActivity.newInstance(this))
             }
 
         }
@@ -255,5 +271,13 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun visibilityView(){
+        flagVisibility = !flagVisibility
+        floatingActionButtonService.flagViewState(flagVisibility)
+        seekBarAudio.flagViewState(flagVisibility)
+        imageView.flagViewState(flagVisibility)
+        constraintLayout.flagViewState(flagVisibility)
     }
 }

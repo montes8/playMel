@@ -81,6 +81,7 @@ class HomeActivity : AppCompatActivity() {
         imgLocation.setOnClickListener {
             startActivity(LocationActivity.newInstance(this))
         }
+        Log.d("imageneslocal","${fetchGalleryImages(this)}")
     }
 
     private fun isCastApiAvailable(): Boolean {

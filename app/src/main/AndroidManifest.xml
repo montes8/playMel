@@ -31,17 +31,11 @@
         <activity android:name=".ui.location.LocationActivity"/>
         <activity android:name=".ui.map.MapsActivity" />
         <activity
-            android:name=".ui.detail.movie.MovieActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="landscape" />
+            android:name=".ui.detail.movie.MovieActivity"/>
         <activity
-            android:name=".ui.movies.MoviesActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:name=".ui.movies.MoviesActivity"/>
         <activity
-            android:name=".ui.gallery.GalleryActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:name=".ui.gallery.GalleryActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -54,17 +48,11 @@
         </provider>
 
         <activity
-            android:name=".ui.detail.video.VideoDetailActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="landscape" />
+            android:name=".ui.detail.video.VideoDetailActivity"/>
         <activity
-            android:name=".ui.videos.VideosActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:name=".ui.videos.VideosActivity"/>
         <activity
-            android:name=".ui.splash.SplashActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait">
+            android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -72,13 +60,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.detail.music.DetailMusicActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:name=".ui.detail.music.DetailMusicActivity"/>
         <activity
-            android:name=".ui.home.HomeActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:name=".ui.home.HomeActivity"/>
 
         <service
             android:name=".ui.detail.music.service.FloatingWidgetService"
