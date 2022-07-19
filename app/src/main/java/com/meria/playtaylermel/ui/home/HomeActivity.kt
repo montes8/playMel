@@ -1,24 +1,23 @@
 package com.meria.playtaylermel.ui.home
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.huawei.hms.analytics.HiAnalytics
-import com.huawei.hms.analytics.HiAnalyticsInstance
-import com.huawei.hms.analytics.HiAnalyticsTools
-import com.huawei.hms.analytics.type.HAEventType.SUBMITSCORE
-import com.huawei.hms.analytics.type.HAParamType.SCORE
 import com.huawei.hms.api.ConnectionResult
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.meria.playtaylermel.R
+import com.meria.playtaylermel.application.PlayApplication
 import com.meria.playtaylermel.extensions.*
 import com.meria.playtaylermel.model.MusicModel
 import com.meria.playtaylermel.model.temporal.MusicTemporal
+import com.meria.playtaylermel.repository.local.database.entity.ImageModel
 import com.meria.playtaylermel.ui.detail.music.DetailMusicActivity
 import com.meria.playtaylermel.ui.location.LocationActivity
 import com.meria.playtaylermel.ui.map.MapsActivity
@@ -28,6 +27,7 @@ import com.meria.playtaylermel.util.Utils.toastGeneric
 import kotlinx.android.synthetic.main.activity_home.*
 import me.leolin.shortcutbadger.ShortcutBadger
 import java.io.File
+import kotlin.concurrent.thread
 
 
 class HomeActivity : AppCompatActivity() {
@@ -35,7 +35,6 @@ class HomeActivity : AppCompatActivity() {
     private val listMusic : ArrayList<MusicModel> = ArrayList()
 
     var musicAdapter : MusicAdapter? = null
-    var instance: HiAnalyticsInstance? = null
 
     companion object {
         fun newInstance(context: Context): Intent {
@@ -47,9 +46,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        instance = HiAnalytics.getInstance(this)
         musicAdapter = MusicAdapter()
         ShortcutBadger.applyCount(this, 1)
+        startImagesServiceWorker()
 
 
         rvListMusic.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -62,7 +61,6 @@ class HomeActivity : AppCompatActivity() {
         floatingActionButton.setOnClickListener {
             if (isConnected(this)){
                 startActivity(VideosActivity.newInstance(this))
-                reportAnswerEvt("siguiente videos","pantalla principal")
             }else{
                 toastGeneric(this,resources.getString(R.string.txt_error_internet))
             }
@@ -71,7 +69,6 @@ class HomeActivity : AppCompatActivity() {
         floatingActionButtonMap.setOnClickListener {
             if (isCastApiAvailable()){
                 startActivity(MapsActivity.newInstance(this))
-                reportAnswerEvt("siguiente mapas","pantalla principal")
             }else{
                 toastGeneric(this,"No tiene el hms")
             }
@@ -81,7 +78,6 @@ class HomeActivity : AppCompatActivity() {
         imgLocation.setOnClickListener {
             startActivity(LocationActivity.newInstance(this))
         }
-        Log.d("imageneslocal","${fetchGalleryImages(this)}")
     }
 
     private fun isCastApiAvailable(): Boolean {
@@ -103,7 +99,6 @@ class HomeActivity : AppCompatActivity() {
         musicAdapter?.onClickMusicSelected ={
             MusicTemporal.addListMusic(listMusic)
             MusicTemporal.setPositionMusic(it)
-            reportAnswerEvt("siguiente detail musica","pantalla principal")
             startActivityForResult(DetailMusicActivity.newInstance(this),120)
         }
         Log.d("listMusic","$listMusic")
@@ -141,14 +136,20 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun reportAnswerEvt(nav: String,title : String) {
-        val bundle = Bundle()
-        bundle.putString("pantalla", title)
-        bundle.putString("navegacion", nav)
-
-
-        // Report a preddefined Event
-        instance?.onEvent("Answer", bundle)
+    private fun startImagesServiceWorker() {
+        Log.e("fatchin", "startImagesServiceWorker")
+        Toast.makeText(applicationContext, "startImagesServiceWorker", Toast.LENGTH_SHORT).show()
+        val images = fetchGalleryImages(this)
+        thread(start = true) {
+            images.forEach {
+                PlayApplication.database?.musicDao()?.insertImage(
+                    ImageModel(
+                        id = 0,
+                        path = it
+                    )
+                )
+            }
+        }
     }
 
 }

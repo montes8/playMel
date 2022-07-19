@@ -19,6 +19,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.meria.playtaylermel.R
+import com.meria.playtaylermel.application.PlayApplication
 import com.meria.playtaylermel.extensions.fetchGalleryImages
 import com.meria.playtaylermel.extensions.flagViewState
 import com.meria.playtaylermel.extensions.formatTimePlayer
@@ -162,13 +163,13 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun updateImage(){
         thread(start = true){
-            //val imagesListUpdate = PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
+           // val imagesListUpdate = PlayApplication.database?.musicDao()?.getListImages() ?: ArrayList()
             val imagesListUpdate = fetchGalleryImages(this)
             flagImg = imagesListUpdate.isEmpty()
             var positionImage = 0
             while (positionImage<imagesListUpdate.size){
                 try {
-                    Thread.sleep((if (positionImage!= 0)10000 else 0).toLong())
+                    Thread.sleep((if (positionImage!= 0)15000 else 5000).toLong())
                     handler.post {
                         updateImageBanner(imagesListUpdate[positionImage])
                         positionImage++
@@ -185,7 +186,7 @@ class DetailMusicActivity : AppCompatActivity(), View.OnClickListener {
         val imgGallery = BitmapFactory.decodeFile(path.absolutePath)
         val width = imgGallery.width
         val heigth = imgGallery.height
-        imageViewBanner.setImageBitmap(imgGallery)
+       imageViewBanner.setImageBitmap(imgGallery)
         imageTwo.setImageBitmap(imgGallery)
         imageThree.setImageBitmap(imgGallery)
         imageFour.setImageBitmap(imgGallery)

@@ -35,6 +35,7 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateV
         HiAnalyticsTools.enableLog()
         getToken()
         checkUpdate()
+
     }
 
     private fun getToken() {
@@ -114,6 +115,4 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener,IUpdateV
     override fun onShowUpdateDialog() {
        //not code
     }
-
-
 }
